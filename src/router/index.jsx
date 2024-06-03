@@ -28,6 +28,16 @@ import UserEditAddressPage from "../pages/User/UserEditAddressPage";
 import UserProfilePage from "../pages/User/UserProfilePage";
 import RootLayout from "../pages/Layout";
 import AdminEditProductsPage from "../pages/Admin/AdminEditProductsPage";
+import ProtectedRoute from "../Components/auth/ProtectedRoute";
+import ForgetPasswordPage from "../pages/Auth/ForgetPasswordPage";
+import RsetPasswordPage from "../pages/Auth/ResetPasswordPage";
+import VerifyPasswordPage from "../pages/Auth/VerifyPasswordPage";
+
+const user = JSON.parse(localStorage.getItem("user"));
+const verifyCode = localStorage.getItem("verifyCode") ? true : false;
+const isAdmin = user?.role === "admin";
+const isAuthenticated = !!user;
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
@@ -40,30 +50,147 @@ const router = createBrowserRouter(
         <Route path="/products" element={<ShopProductsPage />} />
         <Route path="/products/:id" element={<ProductDetalisPage />} />
         <Route path="/cart" element={<CartPage />} />
-        <Route path="/order/paymethoud" element={<ChoosePayMethoudPage />} />
-        <Route path="/admin/allproducts" element={<AdminAllProductsPage />} />
-        <Route path="/admin/allorders" element={<AdminAllOrdersPage />} />
-        <Route path="/admin/orders/:id" element={<AdminOrderDetalisPage />} />
-        <Route path="/admin/addbrand" element={<AdminAddBrandPage />} />
-        <Route path="/admin/addcategory" element={<AdminAddCategoryPage />} />
+
+        <Route
+          path="/order/paymethoud"
+          element={
+            <ProtectedRoute isAllowed={isAuthenticated} redirectPath="/login">
+              <ChoosePayMethoudPage />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin/allproducts"
+          element={
+            <ProtectedRoute isAllowed={isAdmin} redirectPath="/login">
+              <AdminAllProductsPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/allorders"
+          element={
+            <ProtectedRoute isAllowed={isAdmin} redirectPath="/login">
+              <AdminAllOrdersPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/orders/:id"
+          element={
+            <ProtectedRoute isAllowed={isAdmin} redirectPath="/login">
+              <AdminOrderDetalisPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/addbrand"
+          element={
+            <ProtectedRoute isAllowed={isAdmin} redirectPath="/login">
+              <AdminAddBrandPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/addcategory"
+          element={
+            <ProtectedRoute isAllowed={isAdmin} redirectPath="/login">
+              <AdminAddCategoryPage />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="/admin/addsubcategory"
-          element={<AdminAddSubCategoryPage />}
+          element={
+            <ProtectedRoute isAllowed={isAdmin} redirectPath="/login">
+              <AdminAddSubCategoryPage />
+            </ProtectedRoute>
+          }
         />
-        <Route path="/admin/addproduct" element={<AdminAddProductsPage />} />
+        <Route
+          path="/admin/addproduct"
+          element={
+            <ProtectedRoute isAllowed={isAdmin} redirectPath="/login">
+              <AdminAddProductsPage />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="/admin/editproduct/:id"
-          element={<AdminEditProductsPage />}
+          element={
+            <ProtectedRoute isAllowed={isAdmin} redirectPath="/login">
+              <AdminEditProductsPage />
+            </ProtectedRoute>
+          }
         />
-        <Route path="/user/allorders" element={<UserAllOrdersPage />} />
+
+        <Route
+          path="/user/allorders"
+          element={
+            <ProtectedRoute isAllowed={isAuthenticated} redirectPath="/login">
+              <UserAllOrdersPage />
+            </ProtectedRoute>
+          }
+        />
+
         <Route
           path="/user/favoriteproducts"
-          element={<UserFavoriteProductsPage />}
+          element={
+            <ProtectedRoute isAllowed={isAuthenticated} redirectPath="/login">
+              <UserFavoriteProductsPage />
+            </ProtectedRoute>
+          }
         />
-        <Route path="/user/addresses" element={<UserAllAddresPage />} />
-        <Route path="/user/add-address" element={<UserAddAddressPage />} />
-        <Route path="/user/edit-address" element={<UserEditAddressPage />} />
-        <Route path="/user/profile" element={<UserProfilePage />} />
+
+        <Route
+          path="/user/addresses"
+          element={
+            <ProtectedRoute isAllowed={isAuthenticated} redirectPath="/login">
+              <UserAllAddresPage />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/user/add-address"
+          element={
+            <ProtectedRoute isAllowed={isAuthenticated} redirectPath="/login">
+              <UserAddAddressPage />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/user/edit-address"
+          element={
+            <ProtectedRoute isAllowed={isAuthenticated} redirectPath="/login">
+              <UserEditAddressPage />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/user/profile"
+          element={
+            <ProtectedRoute isAllowed={isAuthenticated} redirectPath="/login">
+              <UserProfilePage />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/user/forget-password" element={<ForgetPasswordPage />} />
+        <Route path="/user/verify-code" element={<VerifyPasswordPage />} />
+        <Route
+          path="/user/reset-password"
+          element={
+            <ProtectedRoute
+              isAllowed={verifyCode}
+              redirectPath="/user/forget-password"
+            >
+              <RsetPasswordPage />
+            </ProtectedRoute>
+          }
+        />
       </Route>
     </>
   )

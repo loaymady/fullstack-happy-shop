@@ -28,7 +28,40 @@ export const authApiSlice = createApi({
         };
       },
     }),
+    forgetPass: builder.mutation({
+      query: (body) => {
+        return {
+          url: `/forgotPasswords`,
+          method: "POST",
+          body,
+        };
+      },
+    }),
+    verifyCode: builder.mutation({
+      query: (body) => {
+        return {
+          url: `/verifyResetCode`,
+          method: "POST",
+          body,
+        };
+      },
+    }),
+    resetPassword: builder.mutation({
+      query: (body) => {
+        return {
+          url: `/resetPassword`,
+          method: "PUT",
+          body,
+        };
+      },
+    }),
   }),
 });
 
-export const { useSignUpMutation, useLogInMutation } = authApiSlice;
+export const {
+  useSignUpMutation,
+  useLogInMutation,
+  useForgetPassMutation,
+  useVerifyCodeMutation,
+  useResetPasswordMutation,
+} = authApiSlice;

@@ -1,4 +1,4 @@
-import { Container, Row, Col, ToastContainer } from "react-bootstrap";
+import { Container, Row, Col, ToastContainer, Spinner } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { useSignUpMutation } from "../../app/features/authSlice";
 import { useFormik } from "formik";
@@ -6,7 +6,7 @@ import { notify } from "../../functions";
 import * as Yup from "yup";
 
 const RegisterPage = () => {
-  const [signUp] = useSignUpMutation();
+  const [signUp, { isLoading }] = useSignUpMutation();
 
   const navigate = useNavigate();
 
@@ -38,10 +38,10 @@ const RegisterPage = () => {
     onSubmit: async (values) => {
       const result = await signUp(values);
 
-      if ("error" in result) {
-        notify(result?.error.data.errors[0]?.msg, "error");
+      if (result.error) {
+        notify(result.error.data.message, "error");
       } else {
-        notify("تم تسجيل الحساب بنجاح", "success");
+        notify("تم إنشاء الحساب بنجاح", "success");
         formikCreate.resetForm();
         setTimeout(() => {
           navigate("/login");
@@ -122,7 +122,17 @@ const RegisterPage = () => {
                 {formikCreate.errors.passwordConfirm}
               </div>
             ) : null}
-            <button className="btn-login mx-auto mt-4">تسجيل الحساب</button>
+            <button
+              type="submit"
+              className="btn-login mx-auto mt-4"
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <Spinner animation="border" role="status" size="sm" />
+              ) : (
+                "تسجيل الحساب"
+              )}
+            </button>
             <label className="mx-auto my-4">
               لديك حساب بالفعل؟{" "}
               <Link to="/login" style={{ textDecoration: "none" }}>

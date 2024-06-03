@@ -1,12 +1,12 @@
 import { useFormik } from "formik";
-import { Container, Row, Col, ToastContainer } from "react-bootstrap";
+import { Container, Row, Col, ToastContainer, Spinner } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import * as Yup from "yup";
 import { notify } from "../../functions";
 import { useLogInMutation } from "../../app/features/authSlice";
 
 const LoginPage = () => {
-  const [logIn] = useLogInMutation();
+  const [logIn, { isLoading }] = useLogInMutation();
 
   const formikCreate = useFormik({
     initialValues: {
@@ -23,21 +23,24 @@ const LoginPage = () => {
     }),
     onSubmit: async (values) => {
       const result = await logIn(values);
-
-      if ("error" in result) {
-        notify(result?.error.data.errors[0]?.msg, "error");
+      if (result.error) {
+        console.log(result.error);
+        notify(result?.error?.data?.message, "error");
       } else {
-        // notify("تم تسجيل الحساب بنجاح", "success");
+        notify("تم التسجيل بنجاح", "success");
         localStorage.setItem("token", result.data.token);
-        // formikCreate.resetForm();
-        window.location = "/";
+        localStorage.setItem("user", JSON.stringify(result.data.data));
+        setTimeout(() => {
+          window.location = "/";
+        }, 2000);
       }
     },
   });
+
   return (
     <Container style={{ minHeight: "680px" }}>
       <Row className="py-5 d-flex justify-content-center ">
-        <form>
+        <form onSubmit={formikCreate.handleSubmit}>
           <Col sm="12" className="d-flex flex-column ">
             <label className="mx-auto title-login">تسجيل الدخول</label>
             <input
@@ -49,7 +52,7 @@ const LoginPage = () => {
               onBlur={formikCreate.handleBlur}
             />
             {formikCreate.touched.email && formikCreate.errors.email ? (
-              <div className=" mt-1 text-center mx-auto text-danger">
+              <div className="mt-1 text-center mx-auto text-danger">
                 {formikCreate.errors.email}
               </div>
             ) : null}
@@ -62,16 +65,20 @@ const LoginPage = () => {
               onBlur={formikCreate.handleBlur}
             />
             {formikCreate.touched.password && formikCreate.errors.password ? (
-              <div className=" mt-1 text-center mx-auto text-danger">
+              <div className="mt-1 text-center mx-auto text-danger">
                 {formikCreate.errors.password}
               </div>
             ) : null}
             <button
               type="submit"
-              onClick={formikCreate.handleSubmit}
               className="btn-login mx-auto mt-4"
+              disabled={isLoading}
             >
-              تسجيل الدخول
+              {isLoading ? (
+                <Spinner animation="border" role="status" size="sm" />
+              ) : (
+                "تسجيل الدخول"
+              )}
             </button>
             <label className="mx-auto my-4">
               ليس لديك حساب ؟{" "}
@@ -79,6 +86,14 @@ const LoginPage = () => {
                 <span style={{ cursor: "pointer" }} className="text-danger">
                   اضغط هنا
                 </span>
+              </Link>
+            </label>
+            <label className="mx-auto my-4">
+              <Link
+                to="/user/forget-password"
+                style={{ textDecoration: "none", color: "red" }}
+              >
+                هل نسيت كلمه السر
               </Link>
             </label>
           </Col>
