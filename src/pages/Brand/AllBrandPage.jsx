@@ -2,6 +2,7 @@ import { useState } from "react";
 import BrandContainer from "../../Components/Brand/BrandContainer";
 import Pagination from "../../Components/Uitily/Pagination";
 import { useGetBrandListQuery } from "../../app/services/brandsSlice";
+
 const AllBrand = () => {
   const [page, setPage] = useState(1);
 

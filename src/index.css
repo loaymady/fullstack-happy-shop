@@ -388,7 +388,8 @@ body {
 }
 .btn-login {
   height: 46px;
-  width: 374px;
+  width: fit-content;
+  padding: 8px;
   border-radius: 9px;
   border: none;
   color: white;

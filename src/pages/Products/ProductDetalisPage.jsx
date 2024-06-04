@@ -10,9 +10,17 @@ import { useGetCategoryListQuery } from "../../app/services/categoriesSlice";
 
 const ProductDetalisPage = () => {
   const { id } = useParams();
-  const { data: product, isLoading: isLoadingProduct } = useGetProductQuery({
+  const {
+    data: product,
+    isLoading: isLoadingProduct,
+    refetch,
+  } = useGetProductQuery({
     id,
   });
+
+  const refetchProduct = () => {
+    refetch();
+  };
 
   const { data: categories, isLoading: isLoadingCategories } =
     useGetCategoryListQuery({});
@@ -20,7 +28,6 @@ const ProductDetalisPage = () => {
   const { data: brands, isLoading: isLoadingBrands } = useGetBrandListQuery({});
 
   if (isLoadingProduct || isLoadingCategories || isLoadingBrands) {
-    
     return (
       <div className="min-vh-100">
         <Spinner
@@ -43,7 +50,11 @@ const ProductDetalisPage = () => {
       <CategoryHeader />
       <Container>
         <ProductDetalis product={product} category={category} brand={brand} />
-        <RateContainer />
+        <RateContainer
+          rateAvg={product.data.ratingsAverage}
+          rateCount={product.data.ratingsQuantity}
+          refetchProduct={refetchProduct}
+        />
         <CardProductsContainer
           title="منتجات قد تعجبك"
           categoryId={product.data.category}

@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import { Row, Col } from "react-bootstrap";
+import rate from "../../images/rate.png";
 
 const ProductText = ({ product, category, brand }) => {
   return (
@@ -9,10 +10,22 @@ const ProductText = ({ product, category, brand }) => {
       </Row>
       <Row>
         <Col md="8">
-          <div className="cat-title d-inline">
+          <div className="cat-title d-flex align-items-center">
             {product.title}
-            <div className="cat-rate d-inline mx-3">
-              {product.ratingsQuantity}
+
+            <div className="cat-rate  d-flex align-items-center  p-1 pt-2">
+              <img
+                className=" mx-1"
+                src={rate}
+                alt=""
+                height="13px"
+                width="13px"
+              />
+              <div>
+                {product.ratingsAverage
+                  ? product.ratingsAverage
+                  : "لا يوجد تقييم"}{" "}
+              </div>
             </div>
           </div>
         </Col>

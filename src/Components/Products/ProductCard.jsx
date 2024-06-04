@@ -1,10 +1,54 @@
 /* eslint-disable react/prop-types */
 import { Card, Col } from "react-bootstrap";
 import favoff from "../../images/fav-off.png";
+import favon from "../../images/fav-on.png";
 import rate from "../../images/rate.png";
 import { Link } from "react-router-dom";
+import {
+  useAddToWishlistMutation,
+  useGetWishlistQuery,
+  useRemoveFromWishlistMutation,
+} from "../../app/services/wishlistSlice";
+import { notify } from "../../functions";
+import { useEffect, useState } from "react";
 
 const ProductCard = ({ product }) => {
+  const { data: wishlistData } = useGetWishlistQuery();
+
+  const [isInWishlist, setIsInWishlist] = useState(false);
+
+  useEffect(() => {
+    if (wishlistData && wishlistData.data) {
+      const productInWishlist = wishlistData.data.some(
+        (item) => item._id === product._id
+      );
+      setIsInWishlist(productInWishlist);
+    }
+  }, [wishlistData, product]);
+
+  const [AddToWishlist] = useAddToWishlistMutation();
+  const [RemoveFromWishlist] = useRemoveFromWishlistMutation();
+
+  const handleAddToWishlist = async () => {
+    const result = await AddToWishlist({ productId: product._id });
+    if (result.error) {
+      notify(result?.error?.data?.message, "error");
+    } else {
+      notify("تمت الاضافة الي المفضلة بنجاح", "success");
+      setIsInWishlist(true); // Update state to reflect addition
+    }
+  };
+
+  const handleRemoveFromWishlist = async () => {
+    const result = await RemoveFromWishlist(product._id);
+    if (result.error) {
+      notify(result?.error?.data?.message, "error");
+    } else {
+      notify("تمت الازالة من المفضلة بنجاح", "success");
+      setIsInWishlist(false); // Update state to reflect removal
+    }
+  };
+
   return (
     <Col xs="6" sm="6" md="4" lg="3" className="d-flex">
       <Card
@@ -27,10 +71,16 @@ const ProductCard = ({ product }) => {
             src={product?.images[0]}
           />
         </Link>
-        <div className="d-flex justify-content-end mx-2">
+        <div
+          onClick={
+            isInWishlist ? handleRemoveFromWishlist : handleAddToWishlist
+          }
+          style={{ cursor: "pointer" }}
+          className="d-flex justify-content-end mx-2 mt-2"
+        >
           <img
-            src={favoff}
-            alt=""
+            src={isInWishlist ? favon : favoff}
+            alt={isInWishlist ? "Remove from wishlist" : "Add to wishlist"}
             className="text-center"
             style={{
               height: "24px",

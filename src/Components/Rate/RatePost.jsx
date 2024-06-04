@@ -1,46 +1,86 @@
-import { Col,Row } from 'react-bootstrap';
+/* eslint-disable react/prop-types */
+import { Col, Row, Spinner } from "react-bootstrap";
 import ReactStars from "react-rating-stars-component";
+import { useCreateReviewMutation } from "../../app/services/reviewsSlice";
+import { useState } from "react";
+import { useParams } from "react-router-dom";
+import { notify } from "../../functions";
 
-const RatePost = () => {
+const RatePost = ({ refetchProduct }) => {
+  const { id } = useParams();
+  const [createReview, { isLoading }] = useCreateReviewMutation();
+  const [reviewText, setReviewText] = useState("");
+  const [rate, setRate] = useState(1);
+  const user = JSON.parse(localStorage.getItem("user"));
 
-    const setting = {
-        size: 20,
-        count: 5,
-        color: "#979797",
-        activeColor: "#ffc107",
-        value: 7.5,
-        a11y: true,
-        isHalf: true,
-        emptyIcon: <i className="far fa-star" />,
-        halfIcon: <i className="fa fa-star-half-alt" />,
-        filledIcon: <i className="fa fa-star" />,
-        onChange: newValue => {
-            console.log(`Example 2: new value is ${newValue}`);
-        }
+  const setting = {
+    size: 20,
+    count: 5,
+    color: "#979797",
+    activeColor: "#ffc107",
+    value: rate,
+    a11y: true,
+    isHalf: true,
+    emptyIcon: <i className="far fa-star" />,
+    halfIcon: <i className="fa fa-star-half-alt" />,
+    filledIcon: <i className="fa fa-star" />,
+    onChange: (newValue) => {
+      setRate(newValue);
+    },
+  };
+
+  const onSubmit = async () => {
+    const data = {
+      rating: rate,
+      review: reviewText,
+      product: id,
+      user: user._id,
     };
-    return (
-        <div>
-        <Row className="mt-3 ">
-          <Col sm="12" className="me-5  d-flex">
-            <div className="rate-name  d-inline ms-3 mt-1 ">علي محمد</div>
-            <ReactStars {...setting} />
-          </Col>
-        </Row>
-        <Row className="border-bottom mx-2">
-          <Col className="d-felx me-4 pb-2">
-            <textarea
-              className="input-form-area p-2 mt-3"
-              rows="2"
-              cols="20"
-              placeholder="اكتب تعليقك...."
-            />
-            <div className=" d-flex justify-content-end al">
-              <div className="product-cart-add px-3  py-2 text-center d-inline">اضف تعليق</div>
-            </div>
-          </Col>
-        </Row>
-      </div>
-    )
-}
+    const result = await createReview(data);
+    if (result.error) {
+      console.log(result.error);
+    } else {
+      notify("تم اضافة التعليق بنجاح", "success");
+      refetchProduct();
+      setReviewText("");
+    }
+  };
+  return (
+    <div>
+      <Row className="mt-3 ">
+        <Col sm="12" className="me-5  d-flex">
+          <div className="rate-name  d-inline ms-3 mt-1 ">{user.name}</div>
+          <ReactStars {...setting} />
+        </Col>
+      </Row>
+      <Row className="border-bottom mx-2">
+        <Col className="d-felx me-4 pb-2">
+          <textarea
+            className="input-form-area p-2 mt-3"
+            rows="2"
+            cols="20"
+            placeholder="اكتب تعليقك...."
+            value={reviewText}
+            onChange={(e) => setReviewText(e.target.value)}
+          />
+          <div className=" d-flex justify-content-end al">
+            <button
+              type="submit"
+              className="btn-login mr-auto my-4"
+              disabled={isLoading}
+              onClick={onSubmit}
+            >
+              {isLoading ? (
+                <Spinner animation="border" role="status" size="sm" />
+              ) : (
+                "اضف تعليق"
+              )}
+            </button>
+          </div>
+        </Col>
+      </Row>
+    </div>
+  );
+};
 
-export default RatePost
+export default RatePost;
