@@ -3,13 +3,16 @@ import { Container, Row, Spinner } from "react-bootstrap";
 import SubTiltle from "../Uitily/SubTiltle";
 import ProductCard from "./ProductCard";
 import { useGetProductListLikeQuery } from "../../app/services/productsSlice";
+import { useGetWishlistQuery } from "../../app/services/wishlistSlice";
 
 const CardProductsContainer = ({ title, btntitle, pathText, categoryId }) => {
   const { data: products, isLoading } = useGetProductListLikeQuery({
     category: categoryId,
   });
+  const { data: wishlistData, isLoading: isLoadingwishlistData } =
+    useGetWishlistQuery();
 
-  if (isLoading) {
+  if (isLoading || isLoadingwishlistData) {
     return (
       <Spinner
         animation="border"
@@ -25,13 +28,21 @@ const CardProductsContainer = ({ title, btntitle, pathText, categoryId }) => {
         {products?.data?.length > 0 ? (
           btntitle === "" ? (
             products?.data?.map((product) => (
-              <ProductCard key={product._id} product={product} />
+              <ProductCard
+                key={product._id}
+                product={product}
+                wishlistData={wishlistData}
+              />
             ))
           ) : (
             products?.data
               .slice(0, 4)
               .map((product) => (
-                <ProductCard key={product._id} product={product} />
+                <ProductCard
+                  key={product._id}
+                  product={product}
+                  wishlistData={wishlistData}
+                />
               ))
           )
         ) : (

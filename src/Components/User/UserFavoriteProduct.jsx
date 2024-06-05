@@ -4,8 +4,10 @@ import Pagination from "../Uitily/Pagination";
 import { useGetWishlistQuery } from "../../app/services/wishlistSlice";
 const UserFavoriteProduct = () => {
   const { data, isLoading } = useGetWishlistQuery();
+  const { data: wishlistData, isLoading: isLoadingwishlistData } =
+    useGetWishlistQuery();
 
-  if (isLoading) {
+  if (isLoading || isLoadingwishlistData) {
     return (
       <Spinner
         animation="border"
@@ -19,7 +21,11 @@ const UserFavoriteProduct = () => {
       <div className="admin-content-text pb-4">قائمة المفضلة</div>
       <Row className="justify-content-start">
         {data.data.map((product) => (
-          <ProductCard key={product._id} product={product} />
+          <ProductCard
+            key={product._id}
+            product={product}
+            wishlistData={wishlistData}
+          />
         ))}
       </Row>
       <Pagination />

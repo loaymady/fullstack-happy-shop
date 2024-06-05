@@ -6,14 +6,13 @@ import rate from "../../images/rate.png";
 import { Link } from "react-router-dom";
 import {
   useAddToWishlistMutation,
-  useGetWishlistQuery,
   useRemoveFromWishlistMutation,
 } from "../../app/services/wishlistSlice";
 import { notify } from "../../functions";
 import { useEffect, useState } from "react";
 
-const ProductCard = ({ product }) => {
-  const { data: wishlistData } = useGetWishlistQuery();
+const ProductCard = ({ product, wishlistData }) => {
+  const islogin = localStorage.getItem("token") ? true : false;
 
   const [isInWishlist, setIsInWishlist] = useState(false);
 
@@ -30,6 +29,10 @@ const ProductCard = ({ product }) => {
   const [RemoveFromWishlist] = useRemoveFromWishlistMutation();
 
   const handleAddToWishlist = async () => {
+    if (!islogin) {
+      notify("يجب تسجيل الدخول اولا", "error");
+      return;
+    }
     const result = await AddToWishlist({ productId: product._id });
     if (result.error) {
       notify(result?.error?.data?.message, "error");
@@ -44,7 +47,7 @@ const ProductCard = ({ product }) => {
     if (result.error) {
       notify(result?.error?.data?.message, "error");
     } else {
-      notify("تمت الازالة من المفضلة بنجاح", "success");
+      notify("تمت الازالة من المفضلة بنجاح", "error");
       setIsInWishlist(false); // Update state to reflect removal
     }
   };
@@ -102,7 +105,7 @@ const ProductCard = ({ product }) => {
                   height="16px"
                   width="16px"
                 />
-                <div className="card-rate mx-2">{product?.ratingsQuantity}</div>
+                <div className="card-rate mx-2">{product?.ratingsAverage}</div>
               </div>
               <div className="d-flex">
                 <div className="card-price">{product?.price}</div>

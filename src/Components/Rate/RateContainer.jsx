@@ -10,13 +10,14 @@ import { useParams } from "react-router-dom";
 
 const RateContainer = ({ rateAvg, rateCount, refetchProduct }) => {
   const { id } = useParams();
-
   const [page, setPage] = useState(1);
+
   const { isLoading, data: allReviews } = useGetReviewListQuery({
-    limit: 5,
+    limit: 3,
     page,
     productId: id,
   });
+
   if (isLoading) {
     return (
       <Spinner
@@ -45,7 +46,7 @@ const RateContainer = ({ rateAvg, rateCount, refetchProduct }) => {
       </Row>
       <RatePost refetchProduct={refetchProduct} />
       {allReviews.data.length > 0 ? (
-        <>
+        <div className="mb-3">
           {allReviews.data.map((review) => (
             <RateItem
               review={review}
@@ -53,8 +54,10 @@ const RateContainer = ({ rateAvg, rateCount, refetchProduct }) => {
               refetchProduct={refetchProduct}
             />
           ))}
-          <Pagination pageCount={pageCount} onPress={getPage} />
-        </>
+          {pageCount === 1 ? null : (
+            <Pagination pageCount={pageCount} onPress={getPage} />
+          )}
+        </div>
       ) : (
         <h4 className="pt-4 px-3">لا يوجد تقييمات حتي الان</h4>
       )}

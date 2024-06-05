@@ -5,12 +5,12 @@ import BrandCard from "./BrandCard";
 import { useGetBrandListQuery } from "../../app/services/brandsSlice";
 
 const BrandFeatured = ({ title, btntitle }) => {
-  const { isLoading, data: brands } = useGetBrandListQuery({ limit: 6 });
+  const { isLoading, data: brands } = useGetBrandListQuery({ limit: 5 });
 
   return (
     <Container className="pb-2">
       <SubTiltle title={title} btntitle={btntitle} pathText="/allbrand" />
-      <Row className="my-1 d-flex ">
+      <Row className="my-1 d-flex justify-content-between">
         {isLoading === false ? (
           brands?.data.length > 0 ? (
             brands.data.map((brand) => (
