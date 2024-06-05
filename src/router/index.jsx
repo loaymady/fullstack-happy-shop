@@ -32,6 +32,8 @@ import ProtectedRoute from "../Components/auth/ProtectedRoute";
 import ForgetPasswordPage from "../pages/Auth/ForgetPasswordPage";
 import RsetPasswordPage from "../pages/Auth/ResetPasswordPage";
 import VerifyPasswordPage from "../pages/Auth/VerifyPasswordPage";
+import AdminAddCouponPage from "../pages/Admin/AdminAddCouponPage";
+import AdminEditCouponPage from "../pages/Admin/AdminEditCouponPage";
 
 const user = JSON.parse(localStorage.getItem("user"));
 const verifyCode = localStorage.getItem("verifyCode") ? true : false;
@@ -121,6 +123,22 @@ const router = createBrowserRouter(
           element={
             <ProtectedRoute isAllowed={isAdmin} redirectPath="/login">
               <AdminEditProductsPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/addcoupon"
+          element={
+            <ProtectedRoute isAllowed={isAdmin} redirectPath="/login">
+              <AdminAddCouponPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/editcoupon/:id"
+          element={
+            <ProtectedRoute isAllowed={isAdmin} redirectPath="/login">
+              <AdminEditCouponPage />
             </ProtectedRoute>
           }
         />

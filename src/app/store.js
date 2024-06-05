@@ -7,6 +7,7 @@ import { productsApiSlice } from "./services/productsSlice";
 import { authApiSlice } from "./features/authSlice";
 import { reviewsApiSlice } from "./services/reviewsSlice";
 import { wishlistApiSlice } from "./services/wishlistSlice";
+import { couponsApiSlice } from "./services/couponsSlice";
 
 const store = configureStore({
   reducer: {
@@ -18,6 +19,7 @@ const store = configureStore({
     [authApiSlice.reducerPath]: authApiSlice.reducer,
     [reviewsApiSlice.reducerPath]: reviewsApiSlice.reducer,
     [wishlistApiSlice.reducerPath]: wishlistApiSlice.reducer,
+    [couponsApiSlice.reducerPath]: couponsApiSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -31,6 +33,7 @@ const store = configureStore({
       authApiSlice.middleware,
       reviewsApiSlice.middleware,
       wishlistApiSlice.middleware,
+      couponsApiSlice.middleware,
     ]),
 });
 

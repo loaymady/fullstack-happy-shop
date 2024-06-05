@@ -1,4 +1,4 @@
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Spinner } from "react-bootstrap";
 import { useGetCategoryListQuery } from "../../app/services/categoriesSlice";
 import { useCreateSubCategoryMutation } from "../../app/services/subCategorySlice";
 import { useState } from "react";
@@ -32,7 +32,14 @@ const AdminAddSubCategory = () => {
       setCategoryId(0);
     }
   };
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading)
+    return (
+      <Spinner
+        animation="border"
+        className="mx-auto my-3 d-flex my-5"
+        variant="info"
+      />
+    );
   return (
     <div>
       <Row className="justify-content-start ">
