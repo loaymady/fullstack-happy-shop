@@ -15,11 +15,10 @@ export const wishlistApiSlice = createApi({
 
     //** GET Wishlist
     getWishlist: builder.query({
-      query: (body) => {
+      query: () => {
         return {
           url: `/wishlist`,
           method: "GET",
-          body,
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },

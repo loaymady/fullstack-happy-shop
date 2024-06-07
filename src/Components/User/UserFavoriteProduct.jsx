@@ -3,11 +3,10 @@ import ProductCard from "../Products/ProductCard";
 import Pagination from "../Uitily/Pagination";
 import { useGetWishlistQuery } from "../../app/services/wishlistSlice";
 const UserFavoriteProduct = () => {
-  const { data, isLoading } = useGetWishlistQuery();
   const { data: wishlistData, isLoading: isLoadingwishlistData } =
     useGetWishlistQuery();
 
-  if (isLoading || isLoadingwishlistData) {
+  if (isLoadingwishlistData) {
     return (
       <Spinner
         animation="border"
@@ -20,13 +19,17 @@ const UserFavoriteProduct = () => {
     <div>
       <div className="admin-content-text pb-4">قائمة المفضلة</div>
       <Row className="justify-content-start">
-        {data.data.map((product) => (
-          <ProductCard
-            key={product._id}
-            product={product}
-            wishlistData={wishlistData}
-          />
-        ))}
+        {wishlistData && wishlistData?.data.length > 0 ? (
+          wishlistData?.data.map((product) => (
+            <ProductCard
+              key={product._id}
+              product={product}
+              wishlistData={wishlistData}
+            />
+          ))
+        ) : (
+          <h3>لا يوجد منتجات مفضلة</h3>
+        )}
       </Row>
       <Pagination />
     </div>

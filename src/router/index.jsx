@@ -180,7 +180,7 @@ const router = createBrowserRouter(
         />
 
         <Route
-          path="/user/edit-address"
+          path="/user/edit-address/:id"
           element={
             <ProtectedRoute isAllowed={isAuthenticated} redirectPath="/login">
               <UserEditAddressPage />
