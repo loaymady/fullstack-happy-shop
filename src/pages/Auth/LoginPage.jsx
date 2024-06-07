@@ -71,7 +71,7 @@ const LoginPage = () => {
             ) : null}
             <button
               type="submit"
-              className="btn-login mx-auto mt-4"
+              className="btn-login mx-auto mt-4 px-3 py-2"
               disabled={isLoading}
             >
               {isLoading ? (
@@ -81,7 +81,7 @@ const LoginPage = () => {
               )}
             </button>
             <label className="mx-auto my-4">
-              ليس لديك حساب ؟{" "}
+              ليس لديك حساب ؟
               <Link to="/register" style={{ textDecoration: "none" }}>
                 <span style={{ cursor: "pointer" }} className="text-danger">
                   اضغط هنا

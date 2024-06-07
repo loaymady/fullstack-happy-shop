@@ -3,9 +3,9 @@ import "react-toastify/dist/ReactToastify.css";
 
 //to make notifactio to any componentet
 export const notify = (msg, type) => {
-  if (type === "warn") toast.warn(msg, { autoClose: 3000 });
-  else if (type === "success") toast.success(msg, { autoClose: 3000 });
-  else if (type === "error") toast.error(msg, { autoClose: 3000 });
+  if (type === "warn") toast.warn(msg, { autoClose: 2000 });
+  else if (type === "success") toast.success(msg, { autoClose: 2000 });
+  else if (type === "error") toast.error(msg, { autoClose: 2000 });
 };
 
 // to convert base 64 to file

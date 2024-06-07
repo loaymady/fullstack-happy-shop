@@ -25,7 +25,6 @@ const AdminAllProductsCard = ({ product }) => {
       <Modal show={show} onHide={handleClose}>
         <Modal.Header>
           <Modal.Title>
-            {" "}
             <div className="font">تاكيد الحذف</div>
           </Modal.Title>
         </Modal.Header>
