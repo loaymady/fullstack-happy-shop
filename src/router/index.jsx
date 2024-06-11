@@ -51,7 +51,6 @@ const router = createBrowserRouter(
         <Route path="/allbrand" element={<AllBrandPage />} />
         <Route path="/products" element={<ShopProductsPage />} />
         <Route path="/products/:id" element={<ProductDetalisPage />} />
-        <Route path="/cart" element={<CartPage />} />
 
         <Route
           path="/order/paymethoud"
@@ -148,6 +147,14 @@ const router = createBrowserRouter(
           element={
             <ProtectedRoute isAllowed={isAuthenticated} redirectPath="/login">
               <UserAllOrdersPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/cart"
+          element={
+            <ProtectedRoute isAllowed={isAuthenticated} redirectPath="/login">
+              <CartPage />
             </ProtectedRoute>
           }
         />

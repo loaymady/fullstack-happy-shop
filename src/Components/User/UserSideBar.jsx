@@ -1,35 +1,56 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import { NavLink } from "react-router-dom";
 
 const UserSideBar = () => {
-    return (
-        <div className="sidebar">
-            <div className="d-flex flex-column">
-                <Link to="/user/allorders" style={{ textDecoration: 'none' }}>
-                    <div className="admin-side-text mt-3 border-bottom p-2 mx-auto text-center">
-                        اداره الطلبات
-                    </div>
-                </Link>
-                <Link to="/user/favoriteproducts" style={{ textDecoration: 'none' }}>
-                    <div className="admin-side-text my-1 border-bottom p-2 mx-auto text-center">
-                        المنتجات المفضلة
-                    </div>
-                </Link>
-                <Link to="/user/addresses" style={{ textDecoration: 'none' }}>
-                    <div className="admin-side-text my-1 border-bottom p-2 mx-auto text-center">
-                        العنوانين الشخصية
-                    </div>
-                </Link>
+  return (
+    <div className="sidebar">
+      <div className="d-flex flex-column">
+        <NavLink
+          to="/user/allorders"
+          style={{ textDecoration: "none" }}
+          className={({ isActive }) =>
+            isActive
+              ? "admin-side-text mt-3 border-bottom p-2 mx-auto text-center active"
+              : "admin-side-text mt-3 border-bottom p-2 mx-auto text-center"
+          }
+        >
+          اداره الطلبات
+        </NavLink>
+        <NavLink
+          to="/user/favoriteproducts"
+          style={{ textDecoration: "none" }}
+          className={({ isActive }) =>
+            isActive
+              ? "admin-side-text my-1 border-bottom p-2 mx-auto text-center active"
+              : "admin-side-text my-1 border-bottom p-2 mx-auto text-center"
+          }
+        >
+          المنتجات المفضلة
+        </NavLink>
+        <NavLink
+          to="/user/addresses"
+          style={{ textDecoration: "none" }}
+          className={({ isActive }) =>
+            isActive
+              ? "admin-side-text my-1 border-bottom p-2 mx-auto text-center active"
+              : "admin-side-text my-1 border-bottom p-2 mx-auto text-center"
+          }
+        >
+          العنوانين الشخصية
+        </NavLink>
+        <NavLink
+          to="/user/profile"
+          style={{ textDecoration: "none" }}
+          className={({ isActive }) =>
+            isActive
+              ? "admin-side-text my-1 border-bottom p-2 mx-auto text-center active"
+              : "admin-side-text my-1 border-bottom p-2 mx-auto text-center"
+          }
+        >
+          الملف الشخصي
+        </NavLink>
+      </div>
+    </div>
+  );
+};
 
-                <Link to="/user/profile" style={{ textDecoration: 'none' }}>
-                    <div className="admin-side-text my-1 border-bottom p-2 mx-auto text-center">
-                        الملف الشخصي
-                    </div>
-                </Link>
-
-
-            </div>
-        </div>
-    )
-}
-export default UserSideBar
+export default UserSideBar;

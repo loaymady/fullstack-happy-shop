@@ -1,8 +1,19 @@
 /* eslint-disable react/prop-types */
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Spinner } from "react-bootstrap";
 import rate from "../../images/rate.png";
+import { useAddProductToCartMutation } from "../../app/services/cartSlice";
+import { notify } from "../../functions";
 
 const ProductText = ({ product, category, brand }) => {
+  const [addToCart, { isLoading }] = useAddProductToCartMutation();
+  const handleAddToCart = async () => {
+    const result = await addToCart({ productId: product._id });
+    if (result.error) {
+      notify("هناك مشكلة ما", "error");
+    } else {
+      notify("تم اضافه المنتج للعربه", "success");
+    }
+  };
   return (
     <div>
       <Row className="mt-2">
@@ -67,8 +78,15 @@ const ProductText = ({ product, category, brand }) => {
           <div className="product-price d-inline px-3 py-3 border">
             {product.price} جنيه
           </div>
-          <div className="product-cart-add px-3 py-3 d-inline mx-3">
-            اضف للعربة
+          <div
+            onClick={handleAddToCart}
+            className="product-cart-add px-3 py-3 d-inline mx-3"
+          >
+            {isLoading ? (
+              <Spinner animation="border" role="status" size="sm" />
+            ) : (
+              "اضف للعربة"
+            )}
           </div>
         </Col>
       </Row>
