@@ -1,4 +1,4 @@
-import { Col, Row } from "react-bootstrap";
+import { Col, Row, Spinner } from "react-bootstrap";
 import avatar from "../../images/avatar.png";
 import { useState } from "react";
 import { useCreateCategoryMutation } from "../../app/services/categoriesSlice";
@@ -8,7 +8,7 @@ const AdminAddCategory = () => {
   const [img, setImg] = useState(avatar);
   const [selectImg, setSelectImg] = useState(null);
   const [name, setName] = useState("");
-  const [createCategory] = useCreateCategoryMutation();
+  const [createCategory, { isLoading }] = useCreateCategoryMutation();
   const onImageChange = (e) => {
     const reader = new FileReader();
     reader.onload = () => {
@@ -74,7 +74,11 @@ const AdminAddCategory = () => {
       <Row>
         <Col sm="8" className="d-flex justify-content-end ">
           <button onClick={handelSubmit} className="btn-save d-inline mt-2 ">
-            حفظ التعديلات
+            {isLoading ? (
+              <Spinner animation="border" role="status" size="sm" />
+            ) : (
+              "حفظ التعديلات"
+            )}
           </button>
         </Col>
       </Row>

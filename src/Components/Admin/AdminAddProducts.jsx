@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Spinner } from "react-bootstrap";
 import { CompactPicker } from "react-color";
 import Multiselect from "multiselect-react-dropdown";
 import add from "../../images/add.png";
@@ -42,7 +42,7 @@ const AdminAddProducts = () => {
   const { data: subCategories } = useGetSubCategoryListForCategQuery({
     id: categoryId,
   });
-  const [createProduct] = useCreateProductMutation();
+  const [createProduct, { isLoading }] = useCreateProductMutation();
   const { data: brands } = useGetBrandListQuery({});
 
   const onChangeCateg = (e) => {
@@ -55,12 +55,14 @@ const AdminAddProducts = () => {
       description: "",
       priceBeforeDiscount: "",
       quantity: "",
+      priceAfterDiscount: "",
     },
     onSubmit: async (values) => {
       const data = new FormData();
       data.append("title", values.title);
       data.append("description", values.description);
       data.append("price", values.priceBeforeDiscount);
+      data.append("priceAfterDiscount", values.priceAfterDiscount);
       data.append("quantity", values.quantity);
       data.append("category", categoryId);
       data.append("brand", brandIdSelected);
@@ -135,6 +137,14 @@ const AdminAddProducts = () => {
               id="priceBeforeDiscount"
               min={0}
               {...formikCreate.getFieldProps("priceBeforeDiscount")}
+            />
+            <input
+              type="number"
+              className="input-form d-block mt-3 px-3"
+              placeholder="السعر بعد الخصم"
+              id="priceAfterDiscount"
+              min={0}
+              {...formikCreate.getFieldProps("priceAfterDiscount")}
             />
             {/* <input
               type="number"
@@ -223,7 +233,11 @@ const AdminAddProducts = () => {
         <Row>
           <Col sm="8" className="d-flex justify-content-end ">
             <button type="buttom" className="btn-save d-inline mt-2 ">
-              حفظ التعديلات
+              {isLoading ? (
+                <Spinner animation="border" role="status" size="sm" />
+              ) : (
+                "حفظ التعديلات"
+              )}
             </button>
           </Col>
         </Row>

@@ -34,6 +34,8 @@ import RsetPasswordPage from "../pages/Auth/ResetPasswordPage";
 import VerifyPasswordPage from "../pages/Auth/VerifyPasswordPage";
 import AdminAddCouponPage from "../pages/Admin/AdminAddCouponPage";
 import AdminEditCouponPage from "../pages/Admin/AdminEditCouponPage";
+import ProductsByCategory from "../pages/Products/ProductsByCategory";
+import ProductsByBrand from "../pages/Products/ProductsByBrand";
 
 const user = JSON.parse(localStorage.getItem("user"));
 const verifyCode = localStorage.getItem("verifyCode") ? true : false;
@@ -51,6 +53,8 @@ const router = createBrowserRouter(
         <Route path="/allbrand" element={<AllBrandPage />} />
         <Route path="/products" element={<ShopProductsPage />} />
         <Route path="/products/:id" element={<ProductDetalisPage />} />
+        <Route path="/products/category/:id" element={<ProductsByCategory />} />
+        <Route path="/products/brand/:id" element={<ProductsByBrand />} />
 
         <Route
           path="/order/paymethoud"

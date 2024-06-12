@@ -14,7 +14,7 @@ const BrandFeatured = ({ title, btntitle }) => {
         {isLoading === false ? (
           brands?.data.length > 0 ? (
             brands.data.map((brand) => (
-              <BrandCard key={brand._id} img={brand.image} />
+              <BrandCard key={brand._id} id={brand._id} img={brand.image} />
             ))
           ) : (
             <h4> لا يوجد ماركات</h4>

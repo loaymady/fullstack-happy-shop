@@ -25,6 +25,7 @@ const HomeCategory = () => {
               .map((category, index) => (
                 <CategoryCard
                   key={category._id}
+                  id={category._id}
                   title={category.name}
                   img={category.image}
                   background={colors[index]}

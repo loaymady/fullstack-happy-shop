@@ -35,7 +35,7 @@ const ProductText = ({ product, category, brand }) => {
               <div>
                 {product.ratingsAverage
                   ? product.ratingsAverage
-                  : "لا يوجد تقييم"}{" "}
+                  : "لا يوجد تقييم"}
               </div>
             </div>
           </div>
@@ -75,9 +75,19 @@ const ProductText = ({ product, category, brand }) => {
       </Row>
       <Row className="mt-4">
         <Col md="12">
-          <div className="product-price d-inline px-3 py-3 border">
-            {product.price} جنيه
-          </div>
+          {product.priceAfterDiscount >= 1 ? (
+            <div className="product-price d-inline px-3 py-3 border">
+              <span style={{ textDecorationLine: "line-through" }}>
+                {" "}
+                {product.price}
+              </span>{" "}
+              {product.priceAfterDiscount} جنيه
+            </div>
+          ) : (
+            <div className="product-price d-inline px-3 py-3 border">
+              <span> {product.price}</span> جنيه{" "}
+            </div>
+          )}
           <div
             onClick={handleAddToCart}
             className="product-cart-add px-3 py-3 d-inline mx-3"

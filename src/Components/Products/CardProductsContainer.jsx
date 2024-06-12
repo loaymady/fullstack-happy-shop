@@ -5,7 +5,13 @@ import ProductCard from "./ProductCard";
 import { useGetProductListLikeQuery } from "../../app/services/productsSlice";
 import { useGetWishlistQuery } from "../../app/services/wishlistSlice";
 
-const CardProductsContainer = ({ title, btntitle, pathText, categoryId }) => {
+const CardProductsContainer = ({
+  title,
+  btntitle,
+  pathText,
+  categoryId,
+  productss,
+}) => {
   const { data: products, isLoading } = useGetProductListLikeQuery({
     category: categoryId,
   });
@@ -24,8 +30,16 @@ const CardProductsContainer = ({ title, btntitle, pathText, categoryId }) => {
   return (
     <Container>
       <SubTiltle title={title} btntitle={btntitle} pathText={pathText} />
-      <Row className="mt-2 mb-3 d-flex justify-content-between">
-        {products?.data?.length > 0 ? (
+      <Row className="mt-2 mb-3 d-flex">
+        {productss && productss.length > 0 ? (
+          productss?.map((product) => (
+            <ProductCard
+              key={product._id}
+              product={product}
+              wishlistData={wishlistData}
+            />
+          ))
+        ) : products?.data?.length > 0 && !productss ? (
           btntitle === "" ? (
             products?.data?.map((product) => (
               <ProductCard
@@ -35,6 +49,7 @@ const CardProductsContainer = ({ title, btntitle, pathText, categoryId }) => {
               />
             ))
           ) : (
+            !productss &&
             products?.data
               .slice(0, 4)
               .map((product) => (
@@ -46,7 +61,7 @@ const CardProductsContainer = ({ title, btntitle, pathText, categoryId }) => {
               ))
           )
         ) : (
-          <h4> لا يوجد منتجات</h4>
+          <h2> لا يوجد منتجات</h2>
         )}
       </Row>
     </Container>

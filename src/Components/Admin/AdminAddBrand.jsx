@@ -1,4 +1,4 @@
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Spinner } from "react-bootstrap";
 import avatar from "../../images/avatar.png";
 import { useState } from "react";
 import { useCreateBrandMutation } from "../../app/services/brandsSlice";
@@ -8,7 +8,7 @@ const AdminAddBrand = () => {
   const [img, setImg] = useState(avatar);
   const [selectImg, setSelectImg] = useState(null);
   const [name, setName] = useState("");
-  const [createBrand] = useCreateBrandMutation();
+  const [createBrand, { isLoading }] = useCreateBrandMutation();
   const onImageChange = (e) => {
     const reader = new FileReader();
     reader.onload = () => {
@@ -75,7 +75,11 @@ const AdminAddBrand = () => {
       <Row>
         <Col sm="8" className="d-flex justify-content-end ">
           <button onClick={handelSubmit} className="btn-save d-inline mt-2 ">
-            حفظ التعديلات
+            {isLoading ? (
+              <Spinner animation="border" role="status" size="sm" />
+            ) : (
+              "حفظ التعديلات"
+            )}
           </button>
         </Col>
       </Row>

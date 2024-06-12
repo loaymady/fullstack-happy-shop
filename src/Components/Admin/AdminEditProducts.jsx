@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Spinner } from "react-bootstrap";
 import { CompactPicker } from "react-color";
 import Multiselect from "multiselect-react-dropdown";
 import add from "../../images/add.png";
@@ -22,13 +22,14 @@ const AdminEditProducts = ({ product, categories, brands }) => {
     id: categoryId,
   });
 
-  const [updateProduct] = useUpdateProductMutation();
+  const [updateProduct, { isLoading }] = useUpdateProductMutation();
 
   const formikCreate = useFormik({
     initialValues: {
       title: product.title || "",
       description: product.description || "",
       priceBeforeDiscount: product.price || "",
+      priceAfterDiscount: product.priceAfterDiscount || "",
       quantity: product.quantity || "",
     },
     onSubmit: async (values) => {
@@ -145,6 +146,14 @@ const AdminEditProducts = ({ product, categories, brands }) => {
               min={0}
               {...formikCreate.getFieldProps("priceBeforeDiscount")}
             />
+            <input
+              type="number"
+              className="input-form d-block mt-3 px-3"
+              placeholder="السعر قبل الخصم"
+              id="priceAfterDiscount"
+              min={0}
+              {...formikCreate.getFieldProps("priceAfterDiscount")}
+            />
             {/* <input
               type="number"
               className="input-form d-block mt-3 px-3"
@@ -233,7 +242,11 @@ const AdminEditProducts = ({ product, categories, brands }) => {
         <Row>
           <Col sm="8" className="d-flex justify-content-end ">
             <button type="buttom" className="btn-save d-inline mt-2 ">
-              حفظ التعديلات
+              {isLoading ? (
+                <Spinner animation="border" role="status" size="sm" />
+              ) : (
+                "حفظ التعديلات"
+              )}
             </button>
           </Col>
         </Row>

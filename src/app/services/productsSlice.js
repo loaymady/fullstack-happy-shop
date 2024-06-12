@@ -109,6 +109,23 @@ export const productsApiSlice = createApi({
       },
       invalidatesTags: [{ type: "Products", id: "LIST" }],
     }),
+
+    //** GET Products By Category
+    getProductListByCategory: builder.query({
+      query: (arg) => {
+        return {
+          url: `/products?category=${arg.id}&limit=${arg.limit}&page=${arg.page}`,
+        };
+      },
+    }),
+    //** GET Products By Brand
+    getProductListByBrand: builder.query({
+      query: (arg) => {
+        return {
+          url: `/products?brand=${arg.id}&limit=${arg.limit}&page=${arg.page}`,
+        };
+      },
+    }),
   }),
 });
 
@@ -119,4 +136,6 @@ export const {
   useGetProductListLikeQuery,
   useDeleteProductMutation,
   useUpdateProductMutation,
+  useGetProductListByCategoryQuery,
+  useGetProductListByBrandQuery,
 } = productsApiSlice;
