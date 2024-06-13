@@ -84,6 +84,7 @@ const LoginPage = () => {
               ليس لديك حساب ؟
               <Link to="/register" style={{ textDecoration: "none" }}>
                 <span style={{ cursor: "pointer" }} className="text-danger">
+                  {" "}
                   اضغط هنا
                 </span>
               </Link>

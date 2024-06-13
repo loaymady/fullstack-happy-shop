@@ -13,6 +13,7 @@ import cartt from "../../images/cart.png";
 import { useEffect, useState } from "react";
 
 const NavBarLogin = ({ cart, isError }) => {
+  // const token = localStorage.getItem("token");
   const [user, setUser] = useState("");
   useEffect(() => {
     if (localStorage.getItem("user") != null)

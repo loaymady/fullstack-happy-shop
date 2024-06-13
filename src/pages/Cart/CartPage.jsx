@@ -4,7 +4,7 @@ import CartItem from "../../Components/Cart/CartItem";
 import { useGetCartQuery } from "../../app/services/cartSlice";
 
 const CartPage = () => {
-  const { data, isLoading } = useGetCartQuery();
+  const { data, isLoading, refetch } = useGetCartQuery();
   if (isLoading) return <div>Loading...</div>;
 
   return (

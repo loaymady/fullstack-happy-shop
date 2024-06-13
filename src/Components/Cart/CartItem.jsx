@@ -122,9 +122,19 @@ const CartItem = ({ item }) => {
                 )}
               </Button>
             </div>
-            <div className="d-inline pt-2 barnd-text">
-              {item.price || 0} جنية
-            </div>
+            {item?.product.priceAfterDiscount >= 1 ? (
+              <div className="d-inline pt-2 barnd-text">
+                <span style={{ textDecorationLine: "line-through" }}>
+                  {" "}
+                  {item?.product.price}
+                </span>{" "}
+                {item?.product.priceAfterDiscount} جنيه
+              </div>
+            ) : (
+              <div className="d-inline pt-2 barnd-text">
+                <span> {item?.product.price}</span> جنيه{" "}
+              </div>
+            )}
           </Col>
         </Row>
       </div>

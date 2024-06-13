@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import { Row, Col, Spinner } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   useApplyCouponMutation,
   useClearCartMutation,
@@ -30,6 +30,16 @@ const CartCheckout = ({ cart }) => {
       notify("تم مسح العربة", "success");
     }
   };
+
+  const navigate = useNavigate();
+  const handelCheckout = () => {
+    if (cart?.products?.length >= 1) {
+      navigate("/order/paymethoud");
+    } else {
+      notify("من فضلك اضف منتجات للعربة اولا", "warn");
+    }
+  };
+
   return (
     <Row className="my-1 d-flex justify-content-center cart-checkout pt-3">
       <Col xs="12" className="d-flex  flex-column  ">
@@ -59,13 +69,12 @@ const CartCheckout = ({ cart }) => {
           )}
         </div>
 
-        <Link
-          to="/order/paymethoud"
-          style={{ textDecoration: "none" }}
-          className="product-cart-add  d-inline "
+        <button
+          className="product-cart-add w-100 px-2"
+          onClick={handelCheckout}
         >
-          <button className="product-cart-add w-100 px-2"> اتمام الشراء</button>
-        </Link>
+          اتمام الشراء
+        </button>
         <button
           onClick={handelDeleteCart}
           className="product-cart-add w-100 px-2 my-1"

@@ -113,7 +113,7 @@ const ProductCard = ({ product, wishlistData }) => {
                     <div>
                       <span style={{ textDecorationLine: "line-through" }}>
                         {product.price}
-                      </span>
+                      </span>{" "}
                       {product.priceAfterDiscount}
                     </div>
                   ) : (
