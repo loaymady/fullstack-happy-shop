@@ -33,19 +33,15 @@ const UserAllOrderItem = ({ order }) => {
           </div>
 
           <div>
-            <div className="d-inline">طرقة الدفع</div>
+            <div className="d-inline">طريقة الدفع</div>
             <div className="d-inline mx-2 stat">
-              {order.paymentMethodType === "cash"
-                ? "كاش"
-                : "بطاقة ائتمانية"}
+              {order.paymentMethodType === "cash" ? "كاش" : "بطاقة ائتمانية"}
             </div>
           </div>
         </Col>
         <Col xs="6" className="d-flex justify-content-end">
           <div>
-            <div className="barnd-text">
-              {order.totalOrderPrice || 0} جنية
-            </div>
+            <div className="barnd-text">{order.totalOrderPrice || 0} جنية</div>
           </div>
         </Col>
       </Row>

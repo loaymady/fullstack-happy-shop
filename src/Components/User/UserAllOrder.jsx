@@ -8,12 +8,13 @@ const UserAllOrder = () => {
   if (isLoading) return <div>Loading...</div>;
   return (
     <div>
-      <div className="admin-content-text pb-4">اهلا {user.name}</div>
+      <div className="admin-content-text pb-3">اهلا {user.name}</div>
       <Row className="justify-content-between">
         {orders?.data.length > 0 ? (
-          orders?.data.map((order) => (
-            <UserAllOrderItem key={order._id} order={order} />
-          ))
+          orders?.data
+            .slice()
+            .reverse()
+            .map((order) => <UserAllOrderItem key={order._id} order={order} />)
         ) : (
           <h2>لا يوجد طلبات</h2>
         )}

@@ -1,13 +1,15 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Spinner } from "react-bootstrap";
 import { useCreateCashOrderMutation } from "../../app/services/orederSlice";
 import { notify } from "../../functions";
+import { useNavigate } from "react-router-dom";
 
 const ChoosePayMethoud = ({ addresses, cart, refetchCart }) => {
   const [selectedAddressId, setSelectedAddressId] = useState("");
   const [addressFilter, setAddressFilter] = useState(null);
-  const [createOrder] = useCreateCashOrderMutation();
+  const [createOrder, { isLoading }] = useCreateCashOrderMutation();
+  const navigate = useNavigate();
 
   const handelCreateOrder = async () => {
     if (cart.products.length === 0) {
@@ -33,6 +35,9 @@ const ChoosePayMethoud = ({ addresses, cart, refetchCart }) => {
     } else {
       notify("تم انشاء الطلب", "success");
       refetchCart();
+      setTimeout(() => {
+        navigate("/user/allorders");
+      }, 2000);
     }
   };
 
@@ -121,7 +126,11 @@ const ChoosePayMethoud = ({ addresses, cart, refetchCart }) => {
             onClick={handelCreateOrder}
             style={{ cursor: "pointer" }}
           >
-            اتمام الشراء
+            {isLoading ? (
+              <Spinner animation="border" role="status" size="sm" />
+            ) : (
+              "اتمام الشراء"
+            )}
           </div>
         </Col>
       </Row>
