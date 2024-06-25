@@ -3,11 +3,32 @@ import { Row, Col, Spinner } from "react-bootstrap";
 import rate from "../../images/rate.png";
 import { useAddProductToCartMutation } from "../../app/services/cartSlice";
 import { notify } from "../../functions";
+import { useEffect, useState } from "react";
 
 const ProductText = ({ product, category, brand }) => {
   const [addToCart, { isLoading }] = useAddProductToCartMutation();
+  const [indexColor, setIndexColor] = useState("");
+  const [user, setUser] = useState("");
+  useEffect(() => {
+    if (localStorage.getItem("user") != null)
+      setUser(JSON.parse(localStorage.getItem("user")));
+  }, []);
+
   const handleAddToCart = async () => {
-    const result = await addToCart({ productId: product._id });
+    if (!localStorage.getItem("token")) {
+      notify("يجب تسجيل الدخول اولا", "error");
+      return;
+    }
+    if (product.availableColors && product.availableColors.length > 0) {
+      if (indexColor === null) {
+        notify("يجب اختيار لون المنتج", "error");
+        return;
+      }
+    }
+    const result = await addToCart({
+      productId: product._id,
+      color: product.availableColors ? product.availableColors[indexColor] : "",
+    });
     if (result.error) {
       notify("هناك مشكلة ما", "error");
     } else {
@@ -52,11 +73,18 @@ const ProductText = ({ product, category, brand }) => {
       <Row>
         <Col md="8" className="mt-1 d-flex">
           {product.availableColors
-            ? product.availableColors.map((color) => (
+            ? product.availableColors.map((color, index) => (
                 <div
-                  key={color}
-                  className="color ms-2 border"
-                  style={{ backgroundColor: color, cursor: "auto" }}
+                  key={index}
+                  className="color ms-2"
+                  onClick={() => setIndexColor(index)}
+                  style={{
+                    backgroundColor: color,
+                    border:
+                      indexColor === index
+                        ? "3px solid black"
+                        : "1px solid #dee2e6",
+                  }}
                 ></div>
               ))
             : null}
@@ -88,16 +116,24 @@ const ProductText = ({ product, category, brand }) => {
               <span> {product.price}</span> جنيه{" "}
             </div>
           )}
-          <div
-            onClick={handleAddToCart}
-            className="product-cart-add px-3 py-3 d-inline mx-3"
-          >
-            {isLoading ? (
-              <Spinner animation="border" role="status" size="sm" />
+          {user.role &&
+            user.role !== "admin" &&
+            (product.quantity >= 1 && user.role === "user" ? (
+              <div
+                onClick={handleAddToCart}
+                className="product-cart-add px-3 py-3 d-inline mx-3"
+              >
+                {isLoading ? (
+                  <Spinner animation="border" role="status" size="sm" />
+                ) : (
+                  "اضف للعربة"
+                )}
+              </div>
             ) : (
-              "اضف للعربة"
-            )}
-          </div>
+              <div className="product-cart-remove px-3 py-3 d-inline mx-3">
+                نفذت الكمية
+              </div>
+            ))}
         </Col>
       </Row>
     </div>

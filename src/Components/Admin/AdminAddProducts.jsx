@@ -83,7 +83,8 @@ const AdminAddProducts = () => {
         values.title === "" ||
         values.description === "" ||
         values.priceBeforeDiscount <= 0 ||
-        values.quantity === 0
+        values.quantity === 0 ||
+        colors.length === 0
       ) {
         notify("! برجاء تكملة البيانات ", "warn");
         return;

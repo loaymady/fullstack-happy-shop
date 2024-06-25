@@ -89,13 +89,12 @@ const CartItem = ({ item }) => {
         </Row>
         <Row>
           <Col sm="12" className="mt-1 d-flex">
-            {item?.product?.availableColors.map((color) => (
+            {item.color === "" ? null : (
               <div
-                key={color}
                 className="color ms-2 border"
-                style={{ backgroundColor: color }}
+                style={{ backgroundColor: `${item.color}` }}
               ></div>
-            ))}
+            )}
           </Col>
         </Row>
 

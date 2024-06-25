@@ -23,7 +23,6 @@ const AdminEditProducts = ({ product, categories, brands }) => {
   });
 
   const [updateProduct, { isLoading }] = useUpdateProductMutation();
-
   const formikCreate = useFormik({
     initialValues: {
       title: product.title || "",
@@ -47,8 +46,11 @@ const AdminEditProducts = ({ product, categories, brands }) => {
         const file = new File([blob], "filename.png", { type: "image/png" });
         data.append("images", file);
       }
-
-      colors.map((color) => data.append("availableColors", color));
+      if (colors.length > 0) {
+        colors.map((color) => data.append("availableColors", color));
+      } else {
+        data.append("availableColors", []);
+      }
       subCategoriesId.map((item) => data.append("subcategory", item._id));
 
       //check if the user select more than 5 images
@@ -64,13 +66,13 @@ const AdminEditProducts = ({ product, categories, brands }) => {
         values.title === "" ||
         values.description === "" ||
         values.priceBeforeDiscount <= 0 ||
-        values.quantity === 0
+        values.quantity === 0 ||
+        colors.length === 0
       ) {
         notify("! برجاء تكملة البيانات ", "warn");
         return;
       }
       const result = await updateProduct({ id: product._id, body: data });
-
       if ("error" in result) {
         notify("هناك مشكله", "error");
       } else {
@@ -92,8 +94,8 @@ const AdminEditProducts = ({ product, categories, brands }) => {
     setShowColor(!showColor);
   };
   const removeColor = (color) => {
-    const newColor = colors.filter((e) => e !== color);
-    setColors(newColor);
+    const newColors = colors.filter((e) => e !== color);
+    setColors(newColors);
   };
 
   const handelChangeComplete = (color) => {
@@ -149,17 +151,12 @@ const AdminEditProducts = ({ product, categories, brands }) => {
             <input
               type="number"
               className="input-form d-block mt-3 px-3"
-              placeholder="السعر قبل الخصم"
+              placeholder="السعر بعد الخصم"
               id="priceAfterDiscount"
               min={0}
               {...formikCreate.getFieldProps("priceAfterDiscount")}
             />
-            {/* <input
-              type="number"
-              className="input-form d-block mt-3 px-3"
-              placeholder="السعر بعد الخصم"
-              min={0}
-            /> */}
+
             <input
               type="number"
               className="input-form d-block mt-3 px-3"

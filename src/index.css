@@ -318,6 +318,18 @@ body {
   font-size: 15px;
   font-weight: normal;
 }
+
+.product-cart-remove {
+  text-align: center;
+  height: 45px;
+  border-radius: 9px;
+  border: none;
+  background-color: rgba(243, 0, 0, 0.863);
+  color: #ffffff;
+  font-family: "Almarai";
+  font-size: 15px;
+  font-weight: normal;
+}
 .product-cart-add:hover {
   color: #bdbaba !important;
 }

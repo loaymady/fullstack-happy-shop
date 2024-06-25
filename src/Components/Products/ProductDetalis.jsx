@@ -5,7 +5,6 @@ import ProductGallery from "./ProductGallery";
 import ProductText from "./ProductText";
 
 const ProductDetalis = ({ product, brand, category }) => {
-  console.log(product);
   return (
     <div>
       <Row className="py-3">
