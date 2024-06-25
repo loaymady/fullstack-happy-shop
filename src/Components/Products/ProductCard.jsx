@@ -105,7 +105,9 @@ const ProductCard = ({ product, wishlistData }) => {
                   height="16px"
                   width="16px"
                 />
-                <div className="card-rate mx-2">{product?.ratingsAverage}</div>
+                <div className="card-rate mx-2">
+                  {product?.ratingsAverage || "لا يوجد تقييم"}
+                </div>
               </div>
               <div className="d-flex">
                 <div className="card-price">

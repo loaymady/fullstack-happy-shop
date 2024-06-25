@@ -4,6 +4,7 @@ import { Col, Card, Row, Modal, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useDeleteProductMutation } from "../../app/services/productsSlice";
 import { notify } from "../../functions";
+import rate from "../../images/rate.png";
 
 const AdminAllProductsCard = ({ product }) => {
   const [show, setShow] = useState(false);
@@ -77,7 +78,18 @@ const AdminAllProductsCard = ({ product }) => {
             </Card.Title>
             <Card.Text as={"div"}>
               <div className="d-flex justify-content-between">
-                <div className="card-rate">{product?.ratingsQuantity}</div>
+                <div className="d-flex">
+                  <img
+                    className=""
+                    src={rate}
+                    alt=""
+                    height="16px"
+                    width="16px"
+                  />
+                  <div className="card-rate mx-1">
+                    {product?.ratingsAverage || "لا يوجد تقييم"}
+                  </div>
+                </div>
                 <div className="d-flex">
                   <div className="card-currency mx-1">جنيه</div>
                   <div className="card-price">{product?.price}</div>

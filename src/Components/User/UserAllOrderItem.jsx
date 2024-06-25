@@ -2,13 +2,12 @@
 import { Row, Col } from "react-bootstrap";
 import UserAllOrderCard from "./UserAllOrderCard";
 const UserAllOrderItem = ({ order }) => {
-  console.log(order);
   const formatDate = (dateString) => {
     const options = { year: "numeric", month: "numeric", day: "numeric" };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
   return (
-    <div className="user-order mt-2">
+    <div className="user-order mt-2 p-3">
       <Row>
         <div className="py-2 order-title">
           طلب رقم #{order.id || 0} ...تم بتاريخ {formatDate(order.createdAt)}
@@ -41,7 +40,7 @@ const UserAllOrderItem = ({ order }) => {
         </Col>
         <Col xs="6" className="d-flex justify-content-end">
           <div>
-            <div className="barnd-text">{order.totalOrderPrice || 0} جنية</div>
+            <div className="barnd-text">{order.totalOrderPrice || 0} جنيه</div>
           </div>
         </Col>
       </Row>

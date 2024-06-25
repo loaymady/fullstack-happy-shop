@@ -17,8 +17,8 @@ export const orderApiSlice = createApi({
   }),
   endpoints: (builder) => ({
     getAllOrders: builder.query({
-      query: () => ({
-        url: "/orders",
+      query: (arg) => ({
+        url: `/orders?limit=${arg.limit}&page=${arg.page}`,
       }),
       providesTags: (result) =>
         result
@@ -36,6 +36,7 @@ export const orderApiSlice = createApi({
       query: (id) => ({
         url: `/orders/${id}`,
       }),
+      providesTags: (result, error, id) => [{ type: "OrderApi", id }],
     }),
 
     orderPaid: builder.mutation({
@@ -43,7 +44,20 @@ export const orderApiSlice = createApi({
         url: `/orders/${id}/pay`,
         method: "PUT",
       }),
-      invalidatesTags: [{ type: "OrderApi", id: "LIST" }],
+      invalidatesTags: (result, error, id) => [
+        { type: "OrderApi", id },
+        { type: "OrderApi", id: "LIST" },
+      ],
+    }),
+    orderNotPaid: builder.mutation({
+      query: (id) => ({
+        url: `/orders/${id}/notpaid`,
+        method: "PUT",
+      }),
+      invalidatesTags: (result, error, id) => [
+        { type: "OrderApi", id },
+        { type: "OrderApi", id: "LIST" },
+      ],
     }),
 
     orderdeliver: builder.mutation({
@@ -51,7 +65,21 @@ export const orderApiSlice = createApi({
         url: `/orders/${id}/deliver`,
         method: "PUT",
       }),
-      invalidatesTags: [{ type: "OrderApi", id: "LIST" }],
+      invalidatesTags: (result, error, id) => [
+        { type: "OrderApi", id },
+        { type: "OrderApi", id: "LIST" },
+      ],
+    }),
+
+    orderNotDelivered: builder.mutation({
+      query: (id) => ({
+        url: `/orders/${id}/notdelivered`,
+        method: "PUT",
+      }),
+      invalidatesTags: (result, error, id) => [
+        { type: "OrderApi", id },
+        { type: "OrderApi", id: "LIST" },
+      ],
     }),
 
     createCashOrder: builder.mutation({
@@ -71,4 +99,6 @@ export const {
   useOrderPaidMutation,
   useOrderdeliverMutation,
   useCreateCashOrderMutation,
+  useOrderNotPaidMutation,
+  useOrderNotDeliveredMutation,
 } = orderApiSlice;

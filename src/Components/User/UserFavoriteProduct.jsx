@@ -1,6 +1,5 @@
 import { Row, Spinner } from "react-bootstrap";
 import ProductCard from "../Products/ProductCard";
-import Pagination from "../Uitily/Pagination";
 import { useGetWishlistQuery } from "../../app/services/wishlistSlice";
 const UserFavoriteProduct = () => {
   const { data: wishlistData, isLoading: isLoadingwishlistData } =
@@ -31,7 +30,6 @@ const UserFavoriteProduct = () => {
           <h3>لا يوجد منتجات مفضلة</h3>
         )}
       </Row>
-      <Pagination />
     </div>
   );
 };

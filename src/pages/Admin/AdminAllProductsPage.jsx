@@ -1,7 +1,6 @@
 import { Container, Row, Col } from "react-bootstrap";
 import AdminSideBar from "../../Components/Admin/AdminSideBar";
 import AdminAllProducts from "../../Components/Admin/AdminAllProducts";
-import Pagination from "../../Components/Uitily/Pagination";
 const AdminAllProductsPage = () => {
   return (
     <Container>
@@ -12,7 +11,6 @@ const AdminAllProductsPage = () => {
 
         <Col sm="9" xs="10" md="10">
           <AdminAllProducts />
-          <Pagination />
         </Col>
       </Row>
     </Container>

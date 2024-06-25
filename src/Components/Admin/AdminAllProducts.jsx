@@ -1,9 +1,16 @@
 import { Row, Spinner } from "react-bootstrap";
 import AdminAllProductsCard from "./AdminAllProductsCard";
 import { useGetProductListQuery } from "../../app/services/productsSlice";
+import { useState } from "react";
+import Pagination from "../Uitily/Pagination";
 
 const AdminAllProducts = () => {
-  const { data: products, isLoading } = useGetProductListQuery({});
+  const [page, setPage] = useState(1);
+
+  const { data: products, isLoading } = useGetProductListQuery({
+    limit: 5,
+    page,
+  });
 
   if (isLoading) {
     return (
@@ -14,9 +21,12 @@ const AdminAllProducts = () => {
       />
     );
   }
-
+  const pageCount = products?.paginationResult.numberOfPages;
+  const getPage = (page) => {
+    setPage(page);
+  };
   return (
-    <div >
+    <div>
       <div className="admin-content-text">ادارة جميع المنتجات</div>
       <Row className="justify-content-start py-2">
         {products.data?.length > 0 ? (
@@ -25,6 +35,9 @@ const AdminAllProducts = () => {
           ))
         ) : (
           <h4>لا يوجد منتجات حتي الان</h4>
+        )}
+        {pageCount === 1 ? null : (
+          <Pagination pageCount={pageCount} onPress={getPage} />
         )}
       </Row>
     </div>
