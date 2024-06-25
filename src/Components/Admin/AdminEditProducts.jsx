@@ -11,18 +11,26 @@ import { useUpdateProductMutation } from "../../app/services/productsSlice";
 import { notify } from "../../functions";
 
 const AdminEditProducts = ({ product, categories, brands }) => {
-  const [selectedImages, setSelectedImages] = useState(product.images || []);
+  const [existingImages, setExistingImages] = useState(product.images || []);
+  const [newImages, setNewImages] = useState([]);
   const [categoryId, setCategoryId] = useState(product.category);
   const [brandIdSelected, setBrandIdSelected] = useState(product.brand);
   const [subCategoriesId, setSubCategoriesId] = useState([]);
   const [colors, setColors] = useState(product.availableColors || []);
   const [showColor, setShowColor] = useState(false);
+  const [imagesModified, setImagesModified] = useState(false);
 
   const { data: subCategories } = useGetSubCategoryListForCategQuery({
     id: categoryId,
   });
 
+  const handleImageChange = (newImages) => {
+    setNewImages(newImages);
+    setImagesModified(true);
+  };
+
   const [updateProduct, { isLoading }] = useUpdateProductMutation();
+
   const formikCreate = useFormik({
     initialValues: {
       title: product.title || "",
@@ -40,43 +48,56 @@ const AdminEditProducts = ({ product, categories, brands }) => {
       data.append("category", categoryId);
       data.append("brand", brandIdSelected);
 
-      for (const url of selectedImages) {
-        const response = await fetch(url);
-        const blob = await response.blob();
-        const file = new File([blob], "filename.png", { type: "image/png" });
-        data.append("images", file);
+      // Append existing images
+      if (existingImages.length > 0) {
+        data.append("existingImages", JSON.stringify(existingImages));
       }
+
+      // Append new images
+      if (imagesModified) {
+        const fetchImageFile = async (url) => {
+          const response = await fetch(url);
+          const blob = await response.blob();
+          const file = new File([blob], "filename.png", { type: "image/png" });
+          return file;
+        };
+
+        for (const url of newImages) {
+          const file = await fetchImageFile(url);
+          data.append("images", file);
+        }
+      }
+
+      // Append colors and subcategories
       if (colors.length > 0) {
-        colors.map((color) => data.append("availableColors", color));
+        colors.forEach((color) => data.append("availableColors", color));
       } else {
         data.append("availableColors", []);
       }
-      subCategoriesId.map((item) => data.append("subcategory", item._id));
+      subCategoriesId.forEach((item) => data.append("subcategory", item._id));
 
-      //check if the user select more than 5 images
-      if (selectedImages.length > 5) {
-        notify("! غير مسموح بأكثر من 5 صور ", "warn");
-        return;
-      }
+      // Validate the form
       if (
         categoryId === 0 ||
         brandIdSelected === 0 ||
-        selectedImages.length === 0 ||
-        // subCategoriesId.length === 0 ||
+        existingImages.length + newImages.length === 0 ||
         values.title === "" ||
         values.description === "" ||
         values.priceBeforeDiscount <= 0 ||
         values.quantity === 0 ||
+        values.quantity === "" ||
         colors.length === 0
       ) {
         notify("! برجاء تكملة البيانات ", "warn");
         return;
       }
+
       const result = await updateProduct({ id: product._id, body: data });
       if ("error" in result) {
         notify("هناك مشكله", "error");
       } else {
         notify("تم التعديل بنجاح", "success");
+        setImagesModified(false); // Reset the flag after successful update
       }
     },
   });
@@ -93,6 +114,7 @@ const AdminEditProducts = ({ product, categories, brands }) => {
   const onChangeColor = () => {
     setShowColor(!showColor);
   };
+
   const removeColor = (color) => {
     const newColors = colors.filter((e) => e !== color);
     setColors(newColors);
@@ -106,6 +128,7 @@ const AdminEditProducts = ({ product, categories, brands }) => {
   const onSelect = (selectList) => {
     setSubCategoriesId(selectList);
   };
+
   const onRemove = (selectList) => {
     setSubCategoriesId(selectList);
   };
@@ -122,9 +145,12 @@ const AdminEditProducts = ({ product, categories, brands }) => {
           <Col sm="8">
             <div className="text-form pb-2"> صور للمنتج</div>
             <UploaderImages
-              selectedImages={selectedImages}
-              setSelectedImages={setSelectedImages}
+              existingImages={existingImages}
+              setExistingImages={setExistingImages}
+              selectedImages={newImages}
+              setSelectedImages={handleImageChange}
             />
+
             <input
               type="text"
               className="input-form d-block mt-3 px-3"
@@ -156,7 +182,6 @@ const AdminEditProducts = ({ product, categories, brands }) => {
               min={0}
               {...formikCreate.getFieldProps("priceAfterDiscount")}
             />
-
             <input
               type="number"
               className="input-form d-block mt-3 px-3"
@@ -168,7 +193,7 @@ const AdminEditProducts = ({ product, categories, brands }) => {
             <select
               name="languages"
               id="lang"
-              className="select mt-3 px-2  "
+              className="select mt-3 px-2"
               value={categoryId}
               onChange={onChangeCateg}
             >
@@ -195,7 +220,7 @@ const AdminEditProducts = ({ product, categories, brands }) => {
               name="brand"
               id="brand"
               value={brandIdSelected}
-              className="select input-form-area mt-3 px-2 "
+              className="select input-form-area mt-3 px-2"
               onChange={(e) => setBrandIdSelected(e.target.value)}
             >
               <option value={0} disabled>
@@ -207,7 +232,7 @@ const AdminEditProducts = ({ product, categories, brands }) => {
                 </option>
               ))}
             </select>
-            <div className="text-form mt-3 "> الالوان المتاحه للمنتج</div>
+            <div className="text-form mt-3"> الالوان المتاحه للمنتج</div>
             <div className="mt-1 d-flex">
               {colors.length >= 1
                 ? colors.map((color, index) => {
@@ -215,13 +240,12 @@ const AdminEditProducts = ({ product, categories, brands }) => {
                       <div
                         key={index}
                         onClick={() => removeColor(color)}
-                        className="color ms-2 border  mt-1"
+                        className="color ms-2 border mt-1"
                         style={{ backgroundColor: color }}
                       ></div>
                     );
                   })
                 : null}
-
               <img
                 onClick={onChangeColor}
                 src={add}
@@ -237,8 +261,8 @@ const AdminEditProducts = ({ product, categories, brands }) => {
           </Col>
         </Row>
         <Row>
-          <Col sm="8" className="d-flex justify-content-end ">
-            <button type="buttom" className="btn-save d-inline mt-2 ">
+          <Col sm="8" className="d-flex justify-content-end">
+            <button type="submit" className="btn-save d-inline mt-2">
               {isLoading ? (
                 <Spinner animation="border" role="status" size="sm" />
               ) : (

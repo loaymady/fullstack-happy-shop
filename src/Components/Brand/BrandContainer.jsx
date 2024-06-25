@@ -8,8 +8,8 @@ const BrandContainer = ({ brands, isLoading }) => {
       <Row className="my-1 d-flex">
         {isLoading === false ? (
           brands?.data ? (
-            brands.data.map((category) => (
-              <BrandCard key={category.id} img={category.image} />
+            brands.data.map((brand) => (
+              <BrandCard key={brand._id} id={brand._id} img={brand.image} />
             ))
           ) : (
             <h4> لا يوجد ماركات</h4>

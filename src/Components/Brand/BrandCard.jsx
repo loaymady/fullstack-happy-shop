@@ -28,5 +28,5 @@ const BrandCard = ({ img, id }) => {
     </Col>
   );
 };
-
+  
 export default BrandCard;

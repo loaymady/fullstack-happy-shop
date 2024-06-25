@@ -3,7 +3,12 @@
 import { memo } from "react";
 import avatar from "../../images/avatar.png";
 
-const UploaderImages = ({ selectedImages, setSelectedImages }) => {
+const UploaderImages = ({
+  existingImages,
+  setExistingImages,
+  selectedImages,
+  setSelectedImages,
+}) => {
   const onSelectFile = (event) => {
     const selectedFiles = event.target.files;
     const selectedFilesArray = Array.from(selectedFiles);
@@ -23,15 +28,22 @@ const UploaderImages = ({ selectedImages, setSelectedImages }) => {
     event.target.value = "";
   };
 
-  const deleteHandler = (index) => {
-    setSelectedImages((previousImages) =>
-      previousImages.filter((_, i) => i !== index)
-    );
+  const deleteHandler = (index, isExisting) => {
+    if (isExisting) {
+      // Update parent state for existing images
+      setExistingImages((previousImages) =>
+        previousImages.filter((_, i) => i !== index)
+      );
+    } else {
+      setSelectedImages((previousImages) =>
+        previousImages.filter((_, i) => i !== index)
+      );
+    }
   };
 
   return (
     <section className="uploadImgs">
-      {selectedImages.length < 5 ? (
+      {existingImages.length + selectedImages.length < 5 ? (
         <label>
           <img
             src={avatar}
@@ -53,24 +65,34 @@ const UploaderImages = ({ selectedImages, setSelectedImages }) => {
         </label>
       ) : null}
 
-      {selectedImages.length > 0 &&
-        (selectedImages.length > 5 ? (
-          <p className="error">
-            غير مسموح بأكثر من 5 صور ! <br />
-            <span>
-              برجاء حذف <b> {selectedImages.length - 5} </b> صورة منهم
-            </span>
-          </p>
-        ) : null)}
+      {existingImages.length + selectedImages.length > 5 ? (
+        <p className="error">
+          غير مسموح بأكثر من 5 صور ! <br />
+          <span>
+            برجاء حذف{" "}
+            <b> {existingImages.length + selectedImages.length - 5} </b> صورة
+            منهم
+          </span>
+        </p>
+      ) : null}
 
       <div className="images">
-        {selectedImages.map((image, index) => (
+        {existingImages.map((image, index) => (
           <div key={index} className="image">
             <img src={image} alt="upload" />
-            <button type="button" onClick={() => deleteHandler(index)}>
+            <button type="button" onClick={() => deleteHandler(index, true)}>
               X
             </button>
             <p>{index + 1}</p>
+          </div>
+        ))}
+        {selectedImages.map((image, index) => (
+          <div key={index + existingImages.length} className="image">
+            <img src={image} alt="upload" />
+            <button type="button" onClick={() => deleteHandler(index, false)}>
+              X
+            </button>
+            <p>{index + 1 + existingImages.length}</p>
           </div>
         ))}
       </div>
