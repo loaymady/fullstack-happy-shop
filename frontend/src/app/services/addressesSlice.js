@@ -8,7 +8,7 @@ export const addressesApiSlice = createApi({
   refetchOnReconnect: true,
   refetchOnMountOrArgChange: true,
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://test-happy-shop-backend.vercel.app/api/v1",
+    baseUrl: "https://happy-shop-backend-eight.vercel.app/api/v1",
   }),
   endpoints: (builder) => ({
     //return hook for fetching data

@@ -2,20 +2,7 @@ const asyncHandler = require("express-async-handler");
 
 const User = require("../models/userModel");
 
-// const setImageUrl = (doc) => {
-//   if (doc.imageCover) {
-//     const imageCoverUrl = `${process.env.BASE_URL}/prods/${doc.imageCover}`;
-//     doc.imageCover = imageCoverUrl;
-//   }
-//   if (doc.images) {
-//     const images = [];
-//     doc.images.forEach((image) => {
-//       const imageUrl = `${process.env.BASE_URL}/prods/${image}`;
-//       images.push(imageUrl);
-//     });
-//     doc.images = images;
-//   }
-// };
+
 
 // @desc      Add product to wishlist
 // @route     POST /api/v1/wishlist

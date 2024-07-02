@@ -22,20 +22,7 @@ const calcTotalCartPrice = async (cart) => {
   return totalPrice;
 };
 
-// const setImageUrl = (doc) => {
-//   if (doc.images) {
-//     const images = [];
-//     doc.images.forEach((image) => {
-//       if (image.startsWith("http://") || image.startsWith("https://")) {
-//         images.push(image);
-//       } else {
-//         const imageUrl = `${process.env.BASE_URL}/prods/${image}`;
-//         images.push(imageUrl);
-//       }
-//     });
-//     doc.images = images;
-//   }
-// };
+
 
 // @desc      Add product to cart
 // @route     POST /api/v1/cart

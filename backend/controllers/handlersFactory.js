@@ -2,28 +2,7 @@ const asyncHandler = require("express-async-handler");
 const ApiError = require("../utils/apiError");
 const ApiFeatures = require("../utils/apiFeatures");
 
-// const setImageUrl = (doc) => {
-//   if (
-//     doc.imageCover &&
-//     !doc.imageCover.startsWith("http://") &&
-//     !doc.imageCover.startsWith("https://")
-//   ) {
-//     const imageCoverUrl = `${process.env.BASE_URL}/prods/${doc.imageCover}`;
-//     doc.imageCover = imageCoverUrl;
-//   }
-//   if (doc.images) {
-//     const images = [];
-//     doc.images.forEach((image) => {
-//       if (image.startsWith("http://") || image.startsWith("https://")) {
-//         images.push(image);
-//       } else {
-//         const imageUrl = `${process.env.BASE_URL}/prods/${image}`;
-//         images.push(imageUrl);
-//       }
-//     });
-//     doc.images = images;
-//   }
-// };
+
 
 exports.deleteOne = (Model) =>
   asyncHandler(async (req, res, next) => {

@@ -7,18 +7,7 @@ const Product = require("../models/productModel");
 const Cart = require("../models/cartModel");
 const Order = require("../models/orderModel");
 
-// const setImageUrl = (doc) => {
-//   if (doc.images && doc.images.length > 0) {
-//     doc.images = doc.images.map((image) => {
-//       // Check if the image URL is already complete
-//       if (image.startsWith("http://") || image.startsWith("https://")) {
-//         return image;
-//       }
-//       // Prepend the BASE_URL if it is a relative path
-//       return `${process.env.BASE_URL}/prods/${image}`;
-//     });
-//   }
-// };
+
 
 // @desc    Create new order
 // @route   POST /api/orders/cartId

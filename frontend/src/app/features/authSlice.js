@@ -5,7 +5,7 @@ export const authApiSlice = createApi({
   reducerPath: "auth",
 
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://test-happy-shop-backend.vercel.app/api/v1/auth",
+    baseUrl: "https://happy-shop-backend-eight.vercel.app/api/v1/auth",
   }),
   endpoints: (builder) => ({
     //return hook for fetching data

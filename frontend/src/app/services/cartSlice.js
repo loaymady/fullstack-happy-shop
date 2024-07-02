@@ -6,7 +6,7 @@ export const cartApiSlice = createApi({
   refetchOnReconnect: true,
   refetchOnMountOrArgChange: true,
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://test-happy-shop-backend.vercel.app/api/v1",
+    baseUrl: "https://happy-shop-backend-eight.vercel.app/api/v1",
     prepareHeaders: (headers) => {
       const token = localStorage.getItem("token");
       if (token) {
