@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import ReactPaginate from "react-paginate";
+import "./paginationmodule.css";
 
 const Pagination = ({ pageCount, onPress }) => {
   const handlePageClick = (data) => {
@@ -14,7 +15,7 @@ const Pagination = ({ pageCount, onPress }) => {
       pageRangeDisplayed={2}
       pageCount={pageCount}
       previousLabel="السابق"
-      containerClassName={"pagination justify-content-center p-3"}
+      containerClassName={"pagination justify-content-center p-3 gap-2"}
       pageClassName={"page-item"}
       pageLinkClassName={"page-link"}
       previousClassName={"page-item"}

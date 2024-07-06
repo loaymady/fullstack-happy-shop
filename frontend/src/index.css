@@ -111,6 +111,7 @@ body {
   letter-spacing: 0;
   line-height: 20px;
   text-align: right;
+  font-weight: bold;
 }
 .card-price {
   color: #272727;

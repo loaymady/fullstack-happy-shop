@@ -53,6 +53,21 @@ exports.uploadToCloudinary = asyncHandler(async (req, res, next) => {
 
 exports.uploadToCloudinaryImages = asyncHandler(async (req, res, next) => {
   req.body.images = req.body.images || [];
+
+  if (req.body.existingImages) {
+    if (typeof req.body.existingImages === "string") {
+      req.body.existingImages = JSON.parse(req.body.existingImages);
+    }
+    req.body.existingImages.forEach((image) => {
+      if (image.startsWith("http://") || image.startsWith("https://")) {
+        req.body.images.push(image);
+      } else {
+        // Assuming images already uploaded to Cloudinary
+        req.body.images.push(image);
+      }
+    });
+  }
+
   if (req.files.images) {
     await Promise.all(
       req.files.images.map(async (img, index) => {

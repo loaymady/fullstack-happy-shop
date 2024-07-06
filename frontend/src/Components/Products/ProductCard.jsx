@@ -71,6 +71,7 @@ const ProductCard = ({ product, wishlistData }) => {
         >
           <Card.Img
             style={{ height: "228px", width: "100%" }}
+            className="object-fit-contain"
             src={product?.images[0]}
           />
         </Link>
