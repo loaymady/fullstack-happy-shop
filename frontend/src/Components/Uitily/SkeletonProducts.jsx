@@ -2,7 +2,7 @@ import { Col } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
 import Placeholder from "react-bootstrap/Placeholder";
 
-const Skeleton = () => {
+const SkeletonProducts = () => {
   return (
     <Col xs="6" sm="6" md="4" lg="3" className="d-flex">
       <Card
@@ -28,7 +28,11 @@ const Skeleton = () => {
         </Placeholder>
 
         <Card.Body className="d-flex">
-          <Placeholder className="w-100 mt-auto" as={Card.Title} animation="glow">
+          <Placeholder
+            className="w-100 mt-auto"
+            as={Card.Title}
+            animation="glow"
+          >
             <Placeholder
               xs={3}
               style={{
@@ -54,4 +58,4 @@ const Skeleton = () => {
   );
 };
 
-export default Skeleton;
+export default SkeletonProducts;

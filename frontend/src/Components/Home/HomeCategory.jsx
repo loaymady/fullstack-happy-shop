@@ -1,8 +1,9 @@
-import { Container, Row, Spinner } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 import SubTiltle from "../Uitily/SubTiltle";
 import CategoryCard from "../Category/CategoryCard";
-
 import { useGetCategoryListQuery } from "../../app/services/categoriesSlice";
+import SkeletonCategories from "../Uitily/SkeletonCategories";
+
 const colors = [
   "#FFD3E8",
   "#F4DBA5",
@@ -35,7 +36,11 @@ const HomeCategory = () => {
             <h4> لا يوجد تصنيفات</h4>
           )
         ) : (
-          <Spinner animation="border" className="mx-auto my-3" variant="info" />
+          <Row className="mt-2 mb-4 d-flex ">
+            {Array.from({ length: 6 }).map((_, index) => (
+              <SkeletonCategories key={index} />
+            ))}
+          </Row>
         )}
       </Row>
     </Container>

@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
-import { Container, Row, Spinner } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 import CategoryCard from "./CategoryCard";
+import SkeletonCategories from "../Uitily/SkeletonCategories";
 
 const CategoryContainer = ({ isLoading, categories }) => {
   const colors = [
@@ -38,7 +39,11 @@ const CategoryContainer = ({ isLoading, categories }) => {
             <h4> لا يوجد تصنيفات</h4>
           )
         ) : (
-          <Spinner animation="border" className="mx-auto my-3" variant="info" />
+          <Row className="mt-2 mb-4 d-flex ">
+            {Array.from({ length: 6 }).map((_, index) => (
+              <SkeletonCategories key={index} />
+            ))}
+          </Row>
         )}
       </Row>
     </Container>
