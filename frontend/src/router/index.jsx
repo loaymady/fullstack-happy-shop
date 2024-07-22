@@ -157,7 +157,10 @@ const router = createBrowserRouter(
         <Route
           path="/cart"
           element={
-            <ProtectedRoute isAllowed={isAuthenticated} redirectPath="/login">
+            <ProtectedRoute
+              isAllowed={isAuthenticated && !isAdmin}
+              redirectPath="/"
+            >
               <CartPage />
             </ProtectedRoute>
           }

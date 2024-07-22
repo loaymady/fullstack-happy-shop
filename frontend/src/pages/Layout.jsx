@@ -6,7 +6,13 @@ import { ToastContainer } from "react-toastify";
 import { useGetCartQuery } from "../app/services/cartSlice";
 
 const RootLayout = () => {
-  const { data, isLoading, isError } = useGetCartQuery();
+  // const isAdmin =JSON.parse(localStorage.getItem("user"))?.role === "admin" ? true : false;
+  
+  const { data, isLoading, isError } =
+    useGetCartQuery();
+    //   undefined, {
+    //   skip: isAdmin,
+    // }
   if (isLoading) return <div></div>;
   return (
     <div className="root-layout">

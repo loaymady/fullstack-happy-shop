@@ -92,7 +92,7 @@ const ProductCard = ({ product, wishlistData }) => {
             }}
           />
         </div>
-        <Card.Body>
+        <Card.Body >
           <Card.Title>
             <div className="card-title">{product.title} </div>
           </Card.Title>
