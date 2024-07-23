@@ -97,7 +97,7 @@ const ProductCard = ({ product, wishlistData }) => {
             <div className="card-title">{product.title} </div>
           </Card.Title>
           <Card.Text as={"div"}>
-            <div className="d-flex justify-content-between ">
+            <div className="d-flex justify-content-between mt-2">
               <div className="d-flex">
                 <img
                   className=""
@@ -106,7 +106,7 @@ const ProductCard = ({ product, wishlistData }) => {
                   height="16px"
                   width="16px"
                 />
-                <div className="card-rate mx-2">
+                <div className="card-rate mx-1">
                   {product?.ratingsAverage || "لا يوجد تقييم"}
                 </div>
               </div>

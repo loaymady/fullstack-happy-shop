@@ -126,6 +126,40 @@ export const productsApiSlice = createApi({
         };
       },
     }),
+
+    //** GET Products By Searchs
+    //** GET Products By Search
+    SearchProducts: builder.query({
+      query: (arg) => {
+        const categories =
+          arg.category && arg.category.length
+            ? arg.category.map((val) => `category[in][]=${val}`).join("&")
+            : "";
+        const brands =
+          arg.brand && arg.brand.length
+            ? arg.brand.map((val) => `brand[in][]=${val}`).join("&")
+            : "";
+
+        const priceFrom =
+          arg.priceFrom && arg.priceFrom !== 0
+            ? `price[gte]=${arg.priceFrom}`
+            : "";
+
+        const priceTo =
+          arg.priceTo && arg.priceTo !== 0 ? `price[lte]=${arg.priceTo}` : "";
+
+        const sort = arg.sort && arg.sort !== "" ? `&sort=${arg.sort}` : "";
+
+        // Combine the parameters with proper formatting
+        const queryParams = [categories, brands, priceFrom, priceTo, sort]
+          .filter(Boolean)
+          .join("&");
+
+        return {
+          url: `/products?${queryParams}`,
+        };
+      },
+    }),
   }),
 });
 
@@ -138,4 +172,5 @@ export const {
   useUpdateProductMutation,
   useGetProductListByCategoryQuery,
   useGetProductListByBrandQuery,
+  useSearchProductsQuery,
 } = productsApiSlice;

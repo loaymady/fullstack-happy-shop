@@ -22,3 +22,18 @@ export const dataURLtoFile = (dataurl, filename) => {
 
   return new File([u8arr], filename, { type: mime });
 };
+
+export const getSortType = (sortType) => {
+  switch (sortType) {
+    case "الاكثر مبيعا":
+      return "-sold";
+    case "الاعلي تقييما":
+      return "-quantity";
+    case "السعر من الاقل للاعلي":
+      return "+price";
+    case "السعر من الاعلي للاقل":
+      return "-price";
+    default:
+      return "";
+  }
+};
