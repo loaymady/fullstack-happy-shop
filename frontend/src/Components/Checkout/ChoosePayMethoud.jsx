@@ -9,15 +9,15 @@ const ChoosePayMethoud = ({ addresses, cart, refetchCart }) => {
   const [selectedAddressId, setSelectedAddressId] = useState("");
   const [addressFilter, setAddressFilter] = useState(null);
   const [createOrder, { isLoading }] = useCreateCashOrderMutation();
+  const [type, setType] = useState("");
   const navigate = useNavigate();
-
   const handelCreateOrder = async () => {
     if (cart.products.length === 0) {
-      return notify("لا يوجد منتجات في السلة", "error");
+      return notify("لا يوجد منتجات في السلة", "warn");
     }
 
     if (!selectedAddressId || selectedAddressId === "0") {
-      return notify("اختر عنوان للشحن", "error");
+      return notify("اختر عنوان للشحن", "warn");
     }
 
     const body = {
@@ -28,6 +28,15 @@ const ChoosePayMethoud = ({ addresses, cart, refetchCart }) => {
         postalCode: "",
       },
     };
+
+    if (type === "CARD") {
+      console.log("order card");
+    } else if (type === "CASH") {
+      console.log("order cash");
+    } else {
+      return notify("من فضلك اختر طريقة دفع", "warn");
+    }
+
     const result = await createOrder({ id: cart._id, body });
 
     if (result.error) {
@@ -56,9 +65,10 @@ const ChoosePayMethoud = ({ addresses, cart, refetchCart }) => {
           <Col xs="12" className="mt-3">
             <input
               name="group"
+              onChange={(e) => setType(e.target.value)}
               id="group1"
               type="radio"
-              value="الدفع عن طريق الفيزا"
+              value="CARD"
               className="mt-2"
               style={{ cursor: "pointer" }}
             />
@@ -72,9 +82,10 @@ const ChoosePayMethoud = ({ addresses, cart, refetchCart }) => {
           <Col xs="12" className="d-flex">
             <input
               name="group"
+              onChange={(e) => setType(e.target.value)}
               id="group2"
               type="radio"
-              value="الدفع عند الاستلام"
+              value="CASH"
               className="mt-2"
               style={{ cursor: "pointer" }}
             />

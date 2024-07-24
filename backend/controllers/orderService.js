@@ -7,8 +7,6 @@ const Product = require("../models/productModel");
 const Cart = require("../models/cartModel");
 const Order = require("../models/orderModel");
 
-
-
 // @desc    Create new order
 // @route   POST /api/orders/cartId
 // @access  Private/Protected/User
@@ -249,15 +247,19 @@ exports.checkoutSession = asyncHandler(async (req, res, next) => {
   const session = await stripe.checkout.sessions.create({
     line_items: [
       {
-        name: req.user.name,
-        amount: cartPrice * 100,
-        currency: "egp",
+        price_data: {
+          currency: "egp",
+          product_data: {
+            name: req.user.name,
+          },
+          unit_amount: cartPrice * 100, // amount in cents
+        },
         quantity: 1,
       },
     ],
     mode: "payment",
-    success_url: `http://localhost:3000/user/allorders`,
-    cancel_url: `http://localhost:3000/cart`,
+    success_url: `https://happy-shop-backend-eight.vercel.app/user/allorders`,
+    cancel_url: `https://happy-shop-backend-eight.vercel.app/cart`,
     customer_email: req.user.email,
     client_reference_id: req.params.cartId,
     metadata: req.body.shippingAddress,
