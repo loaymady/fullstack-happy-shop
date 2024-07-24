@@ -90,6 +90,14 @@ export const orderApiSlice = createApi({
       }),
       invalidatesTags: [{ type: "OrderApi", id: "LIST" }],
     }),
+
+    createCardOrder: builder.mutation({
+      query: ({ id }) => ({
+        url: `/orders/checkout-session/${id}`,
+        method: "GET",
+      }),
+      invalidatesTags: [{ type: "OrderApi", id: "LIST" }],
+    }),
   }),
 });
 
@@ -101,4 +109,5 @@ export const {
   useCreateCashOrderMutation,
   useOrderNotPaidMutation,
   useOrderNotDeliveredMutation,
+  useCreateCardOrderMutation,
 } = orderApiSlice;

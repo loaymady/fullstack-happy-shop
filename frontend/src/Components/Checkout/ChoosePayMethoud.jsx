@@ -1,14 +1,20 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import { Row, Col, Spinner } from "react-bootstrap";
-import { useCreateCashOrderMutation } from "../../app/services/orederSlice";
+import {
+  useCreateCardOrderMutation,
+  useCreateCashOrderMutation,
+} from "../../app/services/orederSlice";
 import { notify } from "../../functions";
 import { useNavigate } from "react-router-dom";
 
 const ChoosePayMethoud = ({ addresses, cart, refetchCart }) => {
   const [selectedAddressId, setSelectedAddressId] = useState("");
   const [addressFilter, setAddressFilter] = useState(null);
-  const [createOrder, { isLoading }] = useCreateCashOrderMutation();
+  const [createCashOrder, { isLoading: isLoadingCashOrder }] =
+    useCreateCashOrderMutation();
+  const [createCardOrder, { isLoading: isLoadingCardOrder }] =
+    useCreateCardOrderMutation();
   const [type, setType] = useState("");
   const navigate = useNavigate();
   const handelCreateOrder = async () => {
@@ -31,22 +37,29 @@ const ChoosePayMethoud = ({ addresses, cart, refetchCart }) => {
 
     if (type === "CARD") {
       console.log("order card");
+      const result = await createCardOrder({ id: cart._id, body });
+      console.log(result);
+
+      if (result.error) {
+        notify("هناك مشكلة", "error");
+      } else {
+        window.open(result?.data?.session.url);
+      }
     } else if (type === "CASH") {
       console.log("order cash");
+      const result = await createCashOrder({ id: cart._id, body });
+
+      if (result.error) {
+        notify("هناك مشكلة", "error");
+      } else {
+        notify("تم انشاء الطلب", "success");
+        refetchCart();
+        setTimeout(() => {
+          navigate("/user/allorders");
+        }, 2000);
+      }
     } else {
       return notify("من فضلك اختر طريقة دفع", "warn");
-    }
-
-    const result = await createOrder({ id: cart._id, body });
-
-    if (result.error) {
-      notify("هناك مشكلة", "error");
-    } else {
-      notify("تم انشاء الطلب", "success");
-      refetchCart();
-      setTimeout(() => {
-        navigate("/user/allorders");
-      }, 2000);
     }
   };
 
@@ -137,7 +150,7 @@ const ChoosePayMethoud = ({ addresses, cart, refetchCart }) => {
             onClick={handelCreateOrder}
             style={{ cursor: "pointer" }}
           >
-            {isLoading ? (
+            {isLoadingCashOrder || isLoadingCardOrder ? (
               <Spinner animation="border" role="status" size="sm" />
             ) : (
               "اتمام الشراء"
