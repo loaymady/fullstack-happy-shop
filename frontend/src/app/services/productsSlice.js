@@ -150,8 +150,19 @@ export const productsApiSlice = createApi({
 
         const sort = arg.sort && arg.sort !== "" ? `&sort=${arg.sort}` : "";
 
+        const limit = arg.limit ? `&limit=${arg.limit}` : "";
+        const page = arg.page ? `&page=${arg.page}` : "";
+
         // Combine the parameters with proper formatting
-        const queryParams = [categories, brands, priceFrom, priceTo, sort]
+        const queryParams = [
+          categories,
+          brands,
+          priceFrom,
+          priceTo,
+          sort,
+          limit,
+          page,
+        ]
           .filter(Boolean)
           .join("&");
 

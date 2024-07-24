@@ -227,7 +227,8 @@ body {
   font-weight: 400;
   padding: 10px;
 }
-.card-filter-item:hover {
+.card-filter-item:hover,
+.card-filter-item.active {
   background-color: #272727;
   color: #ffffff;
 }

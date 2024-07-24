@@ -2,8 +2,9 @@
 import UnopDropdown from "unop-react-dropdown";
 import sort from "../../images/sort.png";
 
-const SearchCountResult = ({ title, setSortBy }) => {
+const SearchCountResult = ({ title, setSortBy, sortBy }) => {
   const handler = () => {};
+  console.log(sortBy);
   return (
     <div className="d-flex justify-content-between pt-3 px-2">
       <div className="sub-tile">{title}</div>
@@ -30,31 +31,41 @@ const SearchCountResult = ({ title, setSortBy }) => {
           <div className="card-filter">
             <div
               onClick={() => setSortBy("")}
-              className="border-bottom card-filter-item"
+              className={`border-bottom card-filter-item 
+                ${sortBy == "" || sortBy == undefined ? "active" : ""}
+                `}
             >
               بدون ترتيب
             </div>
             <div
               onClick={() => setSortBy("الاكثر مبيعا")}
-              className="border-bottom card-filter-item"
+              className={`border-bottom card-filter-item ${
+                sortBy == "الاكثر مبيعا" ? "active" : ""
+              }`}
             >
               الاكثر مبيعا
             </div>
             <div
               onClick={() => setSortBy("الاعلي تقييما")}
-              className="border-bottom card-filter-item"
+              className={`border-bottom card-filter-item ${
+                sortBy == "الاعلي تقييما" ? "active" : ""
+              }`}
             >
               الاعلي تقييما
             </div>
             <div
               onClick={() => setSortBy("السعر من الاقل للاعلي")}
-              className="border-bottom card-filter-item"
+              className={`border-bottom card-filter-item ${
+                sortBy == "السعر من الاقل للاعلي" ? "active" : ""
+              }`}
             >
               السعر من الاقل للاعلي
             </div>
             <div
               onClick={() => setSortBy("السعر من الاعلي للاقل")}
-              className=" card-filter-item"
+              className={`card-filter-item ${
+                sortBy == "السعر من الاعلي للاقل" ? "active" : ""
+              }`}
             >
               السعر من الاعلي للاقل
             </div>

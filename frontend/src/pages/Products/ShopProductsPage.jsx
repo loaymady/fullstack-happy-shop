@@ -16,30 +16,41 @@ const ShopProductsPage = () => {
   const [priceFrom, setPriceFrom] = useState(0);
   const [priceTo, setPriceTo] = useState(0);
   const [sortBy, setSortBy] = useState("");
+  const [page, setPage] = useState(1);
+
   const { data: categoryList, isLoading: isLoadingCategs } =
     useGetCategoryListQuery({});
   const { data: BrandList, isLoading: isLoadingBrands } = useGetBrandListQuery(
     {}
   );
   const sort = getSortType(sortBy);
+
   const { data: productsBySearch } = useSearchProductsQuery({
     category: catgsChecked,
     brand: brandsChecked,
     priceFrom: priceFrom,
     priceTo: priceTo,
     sort: sort,
+    limit: 8,
+    page: page,
   });
 
   if (isLoadingCategs || isLoadingBrands) return <div>Loading...</div>;
   // console.log(categoryList);
+  const pageCount = productsBySearch?.paginationResult.numberOfPages;
+
+  const getPage = (page) => {
+    setPage(page);
+  };
 
   return (
     <div style={{ minHeight: "670px" }}>
       <CategoryHeader categoryList={categoryList?.data} />
       <Container>
         <SearchCountResult
+          sortBy={sortBy}
           setSortBy={setSortBy}
-          title={`"${productsBySearch?.data.length} نتيجة بحث"`}
+          title={`"${productsBySearch?.results} نتيجة بحث"`}
         />
         <Row className="d-flex flex-row">
           <Col sm="2" xs="2" md="1" className="d-flex">
@@ -57,14 +68,16 @@ const ShopProductsPage = () => {
             />
           </Col>
           <Col sm="10" xs="10" md="11">
-            <CardProductsContainer
-              productss={productsBySearch?.data}
-              title=""
-              btntitle=""
-            />
+            <div className="mb-4">
+              <CardProductsContainer
+                productss={productsBySearch?.data}
+                title=""
+                btntitle=""
+              />
+            </div>
+            <Pagination pageCount={pageCount} onPress={getPage} />
           </Col>
         </Row>
-        <Pagination />
       </Container>
     </div>
   );
