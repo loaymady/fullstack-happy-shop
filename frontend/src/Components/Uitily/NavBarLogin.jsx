@@ -5,16 +5,23 @@ import {
   FormControl,
   Nav,
   NavDropdown,
+  ListGroup,
 } from "react-bootstrap";
 import { Link } from "react-router-dom"; // Import Link from react-router-dom
 import logo from "../../images/logo.png";
 import login from "../../images/login.png";
 import cartt from "../../images/cart.png";
 import { useEffect, useState } from "react";
+import { useGetProductBySearchBarQuery } from "../../app/services/productsSlice";
 
 const NavBarLogin = ({ cart, isError }) => {
-  // const token = localStorage.getItem("token");
+  const [word, setWord] = useState("");
+  const { data: getProductBySearchBar } = useGetProductBySearchBarQuery({
+    word,
+  });
+  const [suggestions, setSuggestions] = useState([]);
   const [user, setUser] = useState("");
+
   useEffect(() => {
     if (localStorage.getItem("user") != null)
       setUser(JSON.parse(localStorage.getItem("user")));
@@ -27,6 +34,24 @@ const NavBarLogin = ({ cart, isError }) => {
     location.reload();
   };
 
+  const OnChangeSearch = (e) => {
+    const searchWord = e.target.value;
+    setWord(searchWord);
+    if (searchWord.length > 0 && getProductBySearchBar) {
+      const filteredSuggestions = getProductBySearchBar.data.filter((product) =>
+        product.title.toLowerCase().includes(searchWord.toLowerCase())
+      );
+      console.log(filteredSuggestions);
+      setSuggestions(filteredSuggestions);
+    } else {
+      setSuggestions([]);
+    }
+  };
+  const handleItemClick = () => {
+    setSuggestions([]); // Clear suggestions when an item is clicked
+    setWord(""); // Clear Word
+  };
+
   return (
     <Navbar className="sticky-top" bg="dark" variant="dark" expand="sm">
       <Container>
@@ -37,12 +62,31 @@ const NavBarLogin = ({ cart, isError }) => {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <FormControl
-            type="search"
-            placeholder="ابحث..."
-            className="me-2 w-100 text-center"
-            aria-label="Search"
-          />
+          <div className="w-100 mx-2 suggestions-wrapper">
+            <FormControl
+              type="search"
+              onChange={OnChangeSearch}
+              value={word}
+              placeholder="ابحث..."
+              className="me-2 w-100 text-center"
+              aria-label="Search"
+            />
+            {suggestions.length > 0 && (
+              <ListGroup className="text-center">
+                {suggestions.map((suggestion) => (
+                  <ListGroup.Item key={suggestion._id}>
+                    <Link
+                      to={`/products/${suggestion._id}`}
+                      className="text-decoration-none text-black"
+                      onClick={handleItemClick} // Handle item click
+                    >
+                      {suggestion.title}
+                    </Link>
+                  </ListGroup.Item>
+                ))}
+              </ListGroup>
+            )}
+          </div>
           <Nav className="me-auto d-flex align-items-center justify-content-center">
             {user !== "" ? (
               <NavDropdown title={user.name} id="basic-nav-dropdown">

@@ -127,7 +127,14 @@ export const productsApiSlice = createApi({
       },
     }),
 
-    //** GET Products By Searchs
+    //** GET Product In SearchBar
+    getProductBySearchBar: builder.query({
+      query: (arg) => {
+        return {
+          url: `/products?keyword=${arg.word}`,
+        };
+      },
+    }),
     //** GET Products By Search
     SearchProducts: builder.query({
       query: (arg) => {
@@ -184,4 +191,5 @@ export const {
   useGetProductListByCategoryQuery,
   useGetProductListByBrandQuery,
   useSearchProductsQuery,
+  useGetProductBySearchBarQuery,
 } = productsApiSlice;

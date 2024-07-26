@@ -23,6 +23,38 @@ body {
   height: 20px;
   width: 20px;
 }
+
+/*search bar autoComplet*/
+
+.suggestions-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.list-group {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  z-index: 1000;
+  background-color: #f9f9f9;
+  border: 1px solid #979797;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.list-group-item {
+  cursor: pointer;
+}
+
+.list-group-item:hover {
+  background-color: #272727 !important;
+}
+
+.list-group-item:hover a {
+  color: #ffffff !important;
+}
+
 .nav-text {
   color: #ffffff;
   font-size: 12px;
