@@ -155,13 +155,13 @@ const AdminOrderDetalis = () => {
             {order.data ? (order.data.user ? order.data.user.email : "") : ""}
           </div>
         </Col>
-        <div className="d-flex mt-2 justify-content-center">
-          <div style={{ width: "15%" }}>
+        <div className="d-flex  justify-content-center flex-wrap my-4">
+          <div className="multiselect">
             <select
               name="pay"
               id="paid"
               onChange={onChangePaid}
-              className="select input-form-area   text-center w-50"
+              className="select input-form-area  text-center w-50"
             >
               <option value="0" disabled selected>
                 الدفع
@@ -180,7 +180,7 @@ const AdminOrderDetalis = () => {
               )}
             </button>
           </div>
-          <div style={{ width: "15%" }}>
+          <div className="multiselect">
             <select
               onChange={onChangeDeliver}
               name="deliver"

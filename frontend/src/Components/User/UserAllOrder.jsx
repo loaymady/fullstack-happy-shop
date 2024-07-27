@@ -31,9 +31,11 @@ const UserAllOrder = () => {
         ) : (
           <h2>لا يوجد طلبات</h2>
         )}{" "}
-        {pageCount === 1 ? null : (
-          <Pagination pageCount={pageCount} onPress={getPage} />
-        )}
+        <div className="paginationInAll">
+          {pageCount === 1 ? null : (
+            <Pagination pageCount={pageCount} onPress={getPage} />
+          )}
+        </div>
       </Row>
     </div>
   );

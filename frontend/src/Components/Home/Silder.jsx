@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Carousel } from "react-bootstrap";
 
-import sliderimg from "../../images/slider1.png";
+import slider1 from "../../images/slider1.png";
+import slider2 from "../../images/slider2.png";
+import slider3 from "../../images/slider3.png";
 import slider4 from "../../images/slider4.png";
-import prod3 from "../../images/prod3.png";
-import prod4 from "../../images/prod4.png";
 
 const Silder = () => {
   const [index, setIndex] = useState(0);
@@ -16,9 +16,9 @@ const Silder = () => {
       <Carousel.Item className="slider-background" interval={5000}>
         <div className="d-flex flex-row justify-content-center align-items-center">
           <img
-            style={{ height: "296px", width: "313.53px" }}
+            style={{ height: "390px", width: "313.53px" }}
             className=""
-            src={slider4}
+            src={slider2}
             alt="First slide"
           />
           <div className="">
@@ -30,9 +30,9 @@ const Silder = () => {
       <Carousel.Item className="slider-background2" interval={5000}>
         <div className="d-flex flex-row justify-content-center align-items-center">
           <img
-            style={{ height: "296px", width: "313.53px" }}
+            style={{ height: "390px", width: "313.53px" }}
             className=""
-            src={sliderimg}
+            src={slider1}
             alt="First slide"
           />
           <div className="">
@@ -45,9 +45,9 @@ const Silder = () => {
       <Carousel.Item className="slider-background3" interval={5000}>
         <div className="d-flex flex-row justify-content-center align-items-center">
           <img
-            style={{ height: "296px", width: "373.53px" }}
+            style={{ height: "390px", width: "373.53px" }}
             className=""
-            src={prod3}
+            src={slider3}
             alt="First slide"
           />
           <div className="">
@@ -60,9 +60,9 @@ const Silder = () => {
       <Carousel.Item className="slider-background4" interval={5000}>
         <div className="d-flex flex-row justify-content-center align-items-center">
           <img
-            style={{ height: "296px", width: "373.53px" }}
+            style={{ height: "390px", width: "373.53px" }}
             className=""
-            src={prod4}
+            src={slider4}
             alt="First slide"
           />
           <div className="">

@@ -1,5 +1,4 @@
 import { Container, Row, Col } from "react-bootstrap";
-import { ToastContainer } from "react-toastify";
 import { useVerifyCodeMutation } from "../../app/features/authSlice";
 import { useState } from "react";
 import { notify } from "../../functions";
@@ -52,7 +51,6 @@ const VerifyPasswordPage = () => {
           </button>
         </Col>
       </Row>
-      <ToastContainer />
     </Container>
   );
 };

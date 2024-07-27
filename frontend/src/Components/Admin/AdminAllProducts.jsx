@@ -8,7 +8,7 @@ const AdminAllProducts = () => {
   const [page, setPage] = useState(1);
 
   const { data: products, isLoading } = useGetProductListQuery({
-    limit: 5,
+    limit: 2,
     page,
   });
 
@@ -27,7 +27,7 @@ const AdminAllProducts = () => {
   };
   return (
     <div>
-      <div className="admin-content-text">ادارة جميع المنتجات</div>
+      <div className="admin-content-text mb-2">ادارة جميع المنتجات</div>
       <Row className="justify-content-start py-2">
         {products.data?.length > 0 ? (
           products?.data?.map((product) => (
@@ -36,9 +36,11 @@ const AdminAllProducts = () => {
         ) : (
           <h4>لا يوجد منتجات حتي الان</h4>
         )}
-        {pageCount === 1 ? null : (
-          <Pagination pageCount={pageCount} onPress={getPage} />
-        )}
+        <div className="paginationInAll">
+          {pageCount === 1 ? null : (
+            <Pagination pageCount={pageCount} onPress={getPage} />
+          )}
+        </div>
       </Row>
     </div>
   );

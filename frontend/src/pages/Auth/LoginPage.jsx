@@ -1,5 +1,5 @@
 import { useFormik } from "formik";
-import { Container, Row, Col, ToastContainer, Spinner } from "react-bootstrap";
+import { Container, Row, Col, Spinner } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import * as Yup from "yup";
 import { notify } from "../../functions";
@@ -41,7 +41,7 @@ const LoginPage = () => {
     <Container style={{ minHeight: "680px" }}>
       <Row className="py-5 d-flex justify-content-center ">
         <form onSubmit={formikCreate.handleSubmit}>
-          <Col sm="12" className="d-flex flex-column ">
+          <Col sm="10" md="12" className="d-flex flex-column ">
             <label className="mx-auto title-login">تسجيل الدخول</label>
             <input
               placeholder="الايميل..."
@@ -100,7 +100,6 @@ const LoginPage = () => {
           </Col>
         </form>
       </Row>
-      <ToastContainer />
     </Container>
   );
 };

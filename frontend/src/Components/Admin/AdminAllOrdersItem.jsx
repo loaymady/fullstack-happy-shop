@@ -9,28 +9,27 @@ const AdminAllOrdersItem = ({ order }) => {
         className="cart-item-body-admin my-2 px-1 d-flex px-2"
         style={{ textDecoration: "none" }}
       >
-        <div className="w-100">
+        <div className="w-100 ">
           <Row className="justify-content-between">
             <Col sm="12" className=" d-flex flex-row justify-content-between">
               <div className="d-inline pt-2 cat-text">طلب رقم #{order.id}</div>
             </Col>
           </Row>
           <Row className="justify-content-center mt-2">
-            <Col sm="12" className=" d-flex flex-row justify-content-start">
-              <div className="d-inline pt-2 cat-title">
+            <Col xs="12" className=" d-flex flex-row justify-content-start">
+              <Col xs="6" md="2" className="d-inline pt-2 cat-title">
                 طلب من.. {order.user.name || ""}
-              </div>
-              <div className="d-inline pt-2 cat-rate me-2">
-                {" "}
+              </Col>
+              <Col xs="6" md="10" className=" pt-2 text-start text-md-end cat-rate me-2">
                 {order.user.email || ""}
-              </div>
+              </Col>
             </Col>
           </Row>
 
-          <Row className="d-flex justify-content-between">
-            <Col xs="6" className="d-flex">
+          <Row className="d-flex justify-content-between mt-3">
+            <Col xs="12" md="6" className="d-flex flex-wrap">
               <div>
-                <div style={{ color: "black" }} className="d-inline">
+                <div style={{ color: "black" }} className="d-inline fw-bolder">
                   {" "}
                   التوصيل
                 </div>
@@ -39,7 +38,7 @@ const AdminAllOrdersItem = ({ order }) => {
                 </div>
               </div>
               <div>
-                <div style={{ color: "black" }} className="d-inline">
+                <div style={{ color: "black" }} className="d-inline fw-bolder ">
                   {" "}
                   الدفع
                 </div>
@@ -49,8 +48,8 @@ const AdminAllOrdersItem = ({ order }) => {
               </div>
 
               <div>
-                <div style={{ color: "black" }} className="d-inline">
-                  طرقة الدفع
+                <div style={{ color: "black" }} className="d-inline fw-bolder">
+                  طريقة الدفع
                 </div>
                 <div className="d-inline mx-2 stat">
                   {order.paymentMethodType === "cash"
@@ -59,10 +58,10 @@ const AdminAllOrdersItem = ({ order }) => {
                 </div>
               </div>
             </Col>
-            <Col xs="6" className="d-flex justify-content-end">
+            <Col xs="12" md="6" className="d-flex justify-content-end">
               <div>
                 <div className="barnd-text">
-                  {order.totalOrderPrice || 0} جنية
+                  {order.totalOrderPrice || 0} جنيه
                 </div>
               </div>
             </Col>

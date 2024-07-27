@@ -22,8 +22,8 @@ const CategoryContainer = ({ isLoading, categories }) => {
     "#0034FD",
   ];
   return (
-    <Container className="mb-4 mb-md-0">
-      <div className="admin-content-text mt-2 ">كل التصنيفات</div>
+    <Container className="my-4 mb-md-5">
+      <div className="admin-content-text mt-2">كل التصنيفات</div>
       <Row className="my-2 d-flex row-gap-5 row-gap-md-0">
         {isLoading === false ? (
           categories?.data ? (

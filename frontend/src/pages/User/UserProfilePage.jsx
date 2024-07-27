@@ -2,13 +2,14 @@ import { Container, Row, Col, Spinner } from "react-bootstrap";
 import UserSideBar from "../../Components/User/UserSideBar";
 import UserProfile from "../../Components/User/UserProfile";
 import { useGetUserQuery } from "../../app/features/userSlice";
+
 const UserProfilePage = () => {
   const { data, isLoading } = useGetUserQuery();
 
   return (
     <Container>
       <Row className="py-3">
-        <Col sm="3" xs="2" md="2">
+        <Col sm="3" xs="3" md="2">
           <UserSideBar />
         </Col>
         {isLoading ? (
@@ -18,7 +19,7 @@ const UserProfilePage = () => {
             variant="info"
           />
         ) : (
-          <Col sm="9" xs="10" md="10">
+          <Col sm="9" xs="9" md="10">
             <UserProfile user={data.data} />
           </Col>
         )}

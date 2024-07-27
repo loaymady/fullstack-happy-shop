@@ -30,6 +30,13 @@ const RatePost = ({ refetchProduct }) => {
   };
 
   const onSubmit = async () => {
+    if (!rate) {
+      return notify("اضف تقييمك اولا", "warn");
+    }
+
+    if (!reviewText) {
+      return notify("اضف تعليقك اولا", "warn");
+    }
     const data = {
       rating: rate,
       review: reviewText,
@@ -48,7 +55,7 @@ const RatePost = ({ refetchProduct }) => {
   return (
     <div>
       <Row className="mt-3 ">
-        <Col sm="12" className="me-5  d-flex">
+        <Col sm="12" className="  d-flex">
           <div className="rate-name  d-inline ms-3 mt-1 ">{user.name}</div>
           <ReactStars {...setting} />
         </Col>
@@ -66,7 +73,7 @@ const RatePost = ({ refetchProduct }) => {
           <div className=" d-flex justify-content-end al">
             <button
               type="submit"
-              className="btn-login mr-auto my-4"
+              className="btn-login px-3 mr-auto my-4"
               disabled={isLoading}
               onClick={onSubmit}
             >

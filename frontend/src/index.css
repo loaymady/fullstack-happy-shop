@@ -2,6 +2,14 @@ body {
   margin: 0;
   font-family: "Almarai", sans-serif;
 }
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .container,
+  .container-sm {
+    max-width: 640px !important;
+  }
+}
+
 .m-0 {
   margin: 0;
 }
@@ -60,6 +68,18 @@ body {
   font-size: 12px;
   font-weight: bold;
 }
+
+.dropdown-menu.show {
+  padding: 0;
+}
+.dropdown-menu.show a {
+  padding: 8px;
+  text-align: center;
+}
+
+.dropdown-divider {
+  margin: 0 !important;
+}
 .sub-tile {
   color: #272727;
   font-family: Almarai;
@@ -106,6 +126,18 @@ body {
   line-height: 53px;
   text-align: center;
 }
+
+@media (max-width: 767px) {
+  .slider-title {
+    display: none;
+  }
+}
+@media (max-width: 767px) {
+  .slider-text {
+    display: none;
+  }
+}
+
 .allCard {
   position: relative;
   height: 130px;
@@ -153,6 +185,7 @@ body {
   letter-spacing: 0;
   line-height: 28px;
 }
+
 .card-currency {
   color: #555550;
   font-family: Almarai;
@@ -160,6 +193,7 @@ body {
   letter-spacing: 0;
   line-height: 24px;
 }
+
 .card-rate {
   color: #ffc107;
   font-family: Almarai;
@@ -259,6 +293,13 @@ body {
   font-weight: 400;
   padding: 10px;
 }
+
+@media (max-width: 767px) {
+  .UnopdropDown_EMFQP .drop-down-menu_EMFQP {
+    left: 60% !important;
+  }
+}
+
 .card-filter-item:hover,
 .card-filter-item.active {
   background-color: #272727;
@@ -423,6 +464,13 @@ body {
   border: 1px solid #979797;
   border-radius: 8px;
 }
+
+@media (max-width: 768px) {
+  .user-input {
+    width: 100%;
+  }
+}
+
 .title-login {
   color: #555550;
   font-family: Almarai;
@@ -528,11 +576,12 @@ body {
 .admin-content-text {
   color: #555550;
   font-family: Almarai;
-  font-size: 21px;
+  font-size: 24px;
   font-weight: 800;
   letter-spacing: 0;
   line-height: 28px;
   text-align: right;
+  margin: 8px 0 0;
 }
 .item-delete-edit {
   color: #979797;
@@ -565,9 +614,21 @@ body {
   border-radius: 8px;
   background-color: #f9f9f9;
 }
+.multiselect {
+  width: 20%;
+  display: flex;
+  gap: 4px;
+}
+
+@media (max-width: 1000px) {
+  .multiselect {
+    width: 60%;
+  }
+}
+
 .select {
   box-sizing: border-box;
-  height: 40px;
+  height: 45px;
   color: #979797;
   width: 100%;
   border: 1px solid #979797;
@@ -653,7 +714,15 @@ body {
   letter-spacing: 0;
   line-height: 30px;
   text-align: right;
+  font-weight: 900;
 }
+
+@media (max-width: 540px) {
+  .paginationInAll {
+    width: 75% !important;
+  }
+}
+
 /* end user order */
 
 /* user Address */

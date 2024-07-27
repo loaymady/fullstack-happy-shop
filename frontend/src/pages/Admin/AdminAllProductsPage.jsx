@@ -5,11 +5,11 @@ const AdminAllProductsPage = () => {
   return (
     <Container>
       <Row className="py-3">
-        <Col sm="3" xs="2" md="2">
+        <Col sm="3" xs="3" md="2">
           <AdminSideBar />
         </Col>
 
-        <Col sm="9" xs="10" md="10">
+        <Col sm="9" xs="9" md="10">
           <AdminAllProducts />
         </Col>
       </Row>

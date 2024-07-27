@@ -23,7 +23,7 @@ const AdminAllOrders = () => {
   console.log(orders);
   return (
     <div>
-      <div className="admin-content-text"></div>
+      <div className="admin-content-text mb-2">ادارة جميع الطلبات</div>
       <Row className="justify-content-start">
         {orders?.data.length > 0 ? (
           orders?.data.map((order) => (
@@ -31,10 +31,12 @@ const AdminAllOrders = () => {
           ))
         ) : (
           <h2>لا يوجد طلبات</h2>
-        )}{" "}
-        {pageCount === 1 ? null : (
-          <Pagination pageCount={pageCount} onPress={getPage} />
         )}
+        <div className="paginationInAll">
+          {pageCount === 1 ? null : (
+            <Pagination pageCount={pageCount} onPress={getPage} />
+          )}
+        </div>
       </Row>
     </div>
   );

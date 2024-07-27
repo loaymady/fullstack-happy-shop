@@ -47,7 +47,7 @@ const ProductDetalisPage = () => {
 
   return (
     <div style={{ minHeight: "670px" }}>
-      <CategoryHeader />
+      <CategoryHeader categoryList={categories?.data}/>
       <Container>
         <ProductDetalis product={product} category={category} brand={brand} />
         <RateContainer

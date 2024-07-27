@@ -1,4 +1,4 @@
-import { Container, Row, Col, ToastContainer, Spinner } from "react-bootstrap";
+import { Container, Row, Col, Spinner } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { useSignUpMutation } from "../../app/features/authSlice";
 import { useFormik } from "formik";
@@ -144,7 +144,6 @@ const RegisterPage = () => {
           </Col>
         </form>
       </Row>
-      <ToastContainer />
     </Container>
   );
 };

@@ -1,4 +1,4 @@
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Container, Row, Spinner } from "react-bootstrap";
 import CategoryHeader from "../../Components/Category/CategoryHeader";
 import CardProductsContainer from "../../Components/Products/CardProductsContainer";
 import Pagination from "../../Components/Uitily/Pagination";
@@ -35,7 +35,16 @@ const ShopProductsPage = () => {
     page: page,
   });
 
-  if (isLoadingCategs || isLoadingBrands) return <div>Loading...</div>;
+  if (isLoadingCategs || isLoadingBrands)
+    return (
+      <div className="min-vh-100 d-flex justify-content-center">
+        <Spinner
+          animation="border"
+          className="mx-auto justify-content-center my-3 d-flex"
+          variant="info"
+        />
+      </div>
+    );
   // console.log(categoryList);
   const pageCount = productsBySearch?.paginationResult.numberOfPages;
 
@@ -53,7 +62,7 @@ const ShopProductsPage = () => {
           title={`"${productsBySearch?.results} نتيجة بحث"`}
         />
         <Row className="d-flex flex-row">
-          <Col sm="2" xs="2" md="1" className="d-flex">
+          <Col sm="4" xs="3" md="1" className="d-flex">
             <SideFilter
               priceFrom={priceFrom}
               setPriceFrom={setPriceFrom}
@@ -67,7 +76,7 @@ const ShopProductsPage = () => {
               BrandList={BrandList?.data}
             />
           </Col>
-          <Col sm="10" xs="10" md="11">
+          <Col sm="10" xs="9" md="11">
             <div className="mb-4">
               <CardProductsContainer
                 productss={productsBySearch?.data}

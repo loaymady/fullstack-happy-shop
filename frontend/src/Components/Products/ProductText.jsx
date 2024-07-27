@@ -102,7 +102,7 @@ const ProductText = ({ product, category, brand }) => {
         </Col>
       </Row>
       <Row className="mt-4">
-        <Col md="12">
+        <Col md="12" className="d-flex flex-wrap">
           {product.priceAfterDiscount >= 1 ? (
             <div className="product-price d-inline px-3 py-3 border">
               <span style={{ textDecorationLine: "line-through" }}>

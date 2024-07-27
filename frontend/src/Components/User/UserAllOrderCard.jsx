@@ -6,7 +6,7 @@ const UserAllOrderCard = ({ item }) => {
   return (
     <div>
       <Row className="d-flex mb-2">
-        <Col xs="3" md="2" className="d-flex justify-content-center">
+        <Col xs="4" md="2" className="d-flex justify-content-center">
           <img
             width="93px"
             height="120px"

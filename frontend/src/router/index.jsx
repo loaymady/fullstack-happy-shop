@@ -38,6 +38,7 @@ import ProductsByCategory from "../pages/Products/ProductsByCategory";
 import ProductsByBrand from "../pages/Products/ProductsByBrand";
 
 const user = JSON.parse(localStorage.getItem("user"));
+const token = localStorage.getItem("token") ? true : false;
 const verifyCode = localStorage.getItem("verifyCode") ? true : false;
 const isAdmin = user?.role === "admin";
 const isAuthenticated = !!user;
@@ -47,7 +48,7 @@ const router = createBrowserRouter(
     <>
       <Route path="/" element={<RootLayout />}>
         <Route index element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
+        {/* <Route path="/login" element={<LoginPage />} /> */}
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/allcategory" element={<AllCategoryPage />} />
         <Route path="/allbrand" element={<AllBrandPage />} />
@@ -56,6 +57,14 @@ const router = createBrowserRouter(
         <Route path="/products/category/:id" element={<ProductsByCategory />} />
         <Route path="/products/brand/:id" element={<ProductsByBrand />} />
 
+        <Route
+          path="/login"
+          element={
+            <ProtectedRoute isAllowed={!token} redirectPath="/">
+              <LoginPage />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="/order/paymethoud"
           element={

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import { ToastContainer } from "react-toastify";
 import { useResetPasswordMutation } from "../../app/features/authSlice";
 import { notify } from "../../functions";
 import { useNavigate } from "react-router-dom";
@@ -59,7 +58,6 @@ const RsetPasswordPage = () => {
           </button>
         </Col>
       </Row>
-      <ToastContainer />
     </Container>
   );
 };

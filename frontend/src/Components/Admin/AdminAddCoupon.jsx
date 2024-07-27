@@ -13,7 +13,8 @@ const AdminAddCoupon = () => {
   const [coupnName, setCoupnName] = useState("");
   const [couponDate, setCouponDate] = useState("");
   const [couponValue, setCouponValue] = useState("");
-  const [createCoupon] = useCreateCouponMutation();
+  const [createCoupon, { isLoading: isLoadingCreateCoupon }] =
+    useCreateCouponMutation();
   const { data, isLoading } = useGetCouponListQuery();
 
   const onSubmit = async () => {
@@ -60,6 +61,7 @@ const AdminAddCoupon = () => {
           <input
             ref={dateRef}
             type="text"
+            min={new Date().toISOString().split("T")[0]}
             className="input-form d-block mt-3 px-3"
             placeholder="تاريخ الإنتهاء"
             onChange={(e) => setCouponDate(e.target.value)}
@@ -81,7 +83,11 @@ const AdminAddCoupon = () => {
       <Row>
         <Col sm="8" className="d-flex justify-content-end ">
           <button onClick={onSubmit} className="btn-save d-inline mt-2 ">
-            حفظ الكوبون
+            {isLoadingCreateCoupon ? (
+              <Spinner animation="border" role="status" size="sm" />
+            ) : (
+              "حفظ الكوبون"
+            )}
           </button>
         </Col>
       </Row>

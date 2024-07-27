@@ -53,7 +53,7 @@ const ProductCard = ({ product, wishlistData }) => {
   };
 
   return (
-    <Col xs="6" sm="6" md="4" lg="3" className="d-flex">
+    <Col xs="12" sm="6" md="4" lg="3" className="d-flex">
       <Card
         className="my-2"
         style={{
@@ -92,7 +92,7 @@ const ProductCard = ({ product, wishlistData }) => {
             }}
           />
         </div>
-        <Card.Body >
+        <Card.Body className="p-2 pt-4 p-sm-3">
           <Card.Title>
             <div className="card-title">{product.title} </div>
           </Card.Title>

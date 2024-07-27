@@ -1,5 +1,4 @@
 import { Container, Row, Col } from "react-bootstrap";
-import { ToastContainer } from "react-toastify";
 import { useForgetPassMutation } from "../../app/features/authSlice";
 import { useState } from "react";
 import { notify } from "../../functions";
@@ -48,7 +47,6 @@ const ForgetPasswordPage = () => {
           </button>
         </Col>
       </Row>
-      <ToastContainer />
     </Container>
   );
 };

@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Button, Col, Modal, Row } from "react-bootstrap";
+import { Button, Col, Modal, Row, Spinner } from "react-bootstrap";
 import deleteicon from "../../images/delete.png";
 import editicon from "../../images/edit.png";
 import { Link } from "react-router-dom";
@@ -14,7 +14,7 @@ const AdminCoupnCard = ({ coupon }) => {
     const options = { year: "numeric", month: "numeric", day: "numeric" };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
-  const [deleteCoupon] = useDeleteCouponMutation();
+  const [deleteCoupon, { isLoading }] = useDeleteCouponMutation();
 
   const handelDelete = async () => {
     const result = await deleteCoupon(coupon._id);
@@ -42,7 +42,11 @@ const AdminCoupnCard = ({ coupon }) => {
             تراجع
           </Button>
           <Button className="font" variant="dark" onClick={handelDelete}>
-            حذف
+            {isLoading ? (
+              <Spinner animation="border" role="status" size="sm" />
+            ) : (
+              "حذف"
+            )}
           </Button>
         </Modal.Footer>
       </Modal>
@@ -76,7 +80,7 @@ const AdminCoupnCard = ({ coupon }) => {
                 height="17px"
                 width="15px"
               />
-              <p className="item-delete-edit"> ازاله</p>
+              <p className="item-delete-edit  text-danger"> ازاله</p>
             </div>
           </div>
         </Col>

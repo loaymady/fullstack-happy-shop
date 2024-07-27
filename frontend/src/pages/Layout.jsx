@@ -7,12 +7,11 @@ import { useGetCartQuery } from "../app/services/cartSlice";
 
 const RootLayout = () => {
   // const isAdmin =JSON.parse(localStorage.getItem("user"))?.role === "admin" ? true : false;
-  
-  const { data, isLoading, isError } =
-    useGetCartQuery();
-    //   undefined, {
-    //   skip: isAdmin,
-    // }
+
+  const { data, isLoading, isError } = useGetCartQuery();
+  //   undefined, {
+  //   skip: isAdmin,
+  // }
   if (isLoading) return <div></div>;
   return (
     <div className="root-layout">
@@ -20,7 +19,7 @@ const RootLayout = () => {
       <Outlet />
       <Footer />
       <ScrollToTop />
-      <ToastContainer />
+      <ToastContainer position="top-right" />
     </div>
   );
 };

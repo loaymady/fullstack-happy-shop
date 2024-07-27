@@ -16,9 +16,14 @@ import { useGetProductBySearchBarQuery } from "../../app/services/productsSlice"
 
 const NavBarLogin = ({ cart, isError }) => {
   const [word, setWord] = useState("");
-  const { data: getProductBySearchBar } = useGetProductBySearchBarQuery({
-    word,
-  });
+  const { data: getProductBySearchBar } = useGetProductBySearchBarQuery(
+    {
+      word,
+    },
+    {
+      skip: word == "" ? true : false,
+    }
+  );
   const [suggestions, setSuggestions] = useState([]);
   const [user, setUser] = useState("");
 
@@ -61,18 +66,18 @@ const NavBarLogin = ({ cart, isError }) => {
           </Link>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <div className="w-100 mx-2 suggestions-wrapper">
+        <Navbar.Collapse id="basic-navbar-nav" className="mt-1">
+          <div className="w-100 mx-md-2 suggestions-wrapper ">
             <FormControl
               type="search"
               onChange={OnChangeSearch}
               value={word}
               placeholder="ابحث..."
-              className="me-2 w-100 text-center"
+              className="me-md-2  w-100 text-center"
               aria-label="Search"
             />
             {suggestions.length > 0 && (
-              <ListGroup className="text-center">
+              <ListGroup className="text-center me-md-2">
                 {suggestions.map((suggestion) => (
                   <ListGroup.Item key={suggestion._id}>
                     <Link

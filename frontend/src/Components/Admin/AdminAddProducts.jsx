@@ -39,9 +39,14 @@ const AdminAddProducts = () => {
     setSubCategoriesId(selectList);
   };
   const { data: categories } = useGetCategoryListQuery({});
-  const { data: subCategories } = useGetSubCategoryListForCategQuery({
-    id: categoryId,
-  });
+  const { data: subCategories } = useGetSubCategoryListForCategQuery(
+    {
+      id: categoryId,
+    },
+    {
+      skip: categoryId == 0 ? true : false,
+    }
+  );
   const [createProduct, { isLoading }] = useCreateProductMutation();
   const { data: brands } = useGetBrandListQuery({});
 

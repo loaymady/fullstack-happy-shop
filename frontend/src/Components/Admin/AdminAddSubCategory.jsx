@@ -8,7 +8,8 @@ const AdminAddSubCategory = () => {
   const [subCategName, setSubCategName] = useState("");
   const [categoryId, setCategoryId] = useState(0);
   const { isLoading, data: categories } = useGetCategoryListQuery({});
-  const [CreateSubCategory] = useCreateSubCategoryMutation();
+  const [CreateSubCategory, { isLoading: isLoadingCreateSub }] =
+    useCreateSubCategoryMutation();
 
   const handelSubmit = async (e) => {
     e.preventDefault();
@@ -73,7 +74,11 @@ const AdminAddSubCategory = () => {
       <Row>
         <Col sm="8" className="d-flex justify-content-end ">
           <button onClick={handelSubmit} className="btn-save d-inline mt-2 ">
-            حفظ التعديلات
+            {isLoadingCreateSub ? (
+              <Spinner animation="border" role="status" size="sm" />
+            ) : (
+              "حفظ التعديلات"
+            )}
           </button>
         </Col>
       </Row>

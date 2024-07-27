@@ -21,11 +21,13 @@ const ProductsByCategory = () => {
 
   if (isLoading)
     return (
-      <Spinner
-        animation="border"
-        className="mx-auto my-3 d-flex my-5"
-        variant="info"
-      />
+      <div className="min-vh-100 d-flex justify-content-center">
+        <Spinner
+          animation="border"
+          className="mx-auto justify-content-center my-3 d-flex"
+          variant="info"
+        />
+      </div>
     );
 
   return (

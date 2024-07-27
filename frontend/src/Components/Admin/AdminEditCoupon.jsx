@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useRef, useState } from "react";
 import { Row, Col } from "react-bootstrap";
-import { ToastContainer } from "react-toastify";
 import { useUpdateCouponMutation } from "../../app/services/couponsSlice";
 import { notify } from "../../functions";
 
@@ -77,7 +76,6 @@ const AdminEditCoupon = ({ data }) => {
         </Col>
       </Row>
 
-      <ToastContainer />
     </div>
   );
 };

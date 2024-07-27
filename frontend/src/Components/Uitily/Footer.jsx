@@ -16,7 +16,7 @@ const Footer = () => {
             <div className="footer-shroot mx-2">سيايه الخصوصيه</div>
             <div className="footer-shroot mx-2">اتصل بنا</div>
           </Col>
-          <Col sm="6" className="d-flex justify-content-end align-items-center">
+          <Col sm="6" className="pt-sm-1 d-flex justify-content-end align-items-center">
             <div className="d-flex pt-1 gap-1">
               <img width="20px" height="20px" src={phone} alt="" />
               <p className="footer-phone  m-0">01067044830</p>
