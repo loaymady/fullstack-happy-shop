@@ -32,21 +32,21 @@ const RateContainer = ({ rateAvg, rateCount, refetchProduct }) => {
     setPage(page);
   };
 
-  console.log(allReviews.data);
-  if (!localStorage.getItem("token")) return;
+  // if (!localStorage.getItem("token")) return;
+
   return (
-    <Container className="rate-container">
+    <Container className="rate-container pt-4">
       <Row>
-        <Col className="d-flex">
-          <div className="sub-tile d-inline p-1 ">التقييمات</div>
-          <img className="mt-2" src={rate} alt="" height="16px" width="16px" />
-          <div className="cat-rate  d-inline  p-1 pt-2">{rateAvg}</div>
-          <div className="rate-count d-inline p-1 pt-2">{`(${rateCount}  تقييم)`}</div>
+        <Col className="d-flex align-items-center">
+          <div className="sub-tile d-inline p-1 fs-2">التقييمات</div>
+          <img src={rate} alt="" height="20px" width="20px" />
+          <div className="cat-rate pt-1 d-inline fs-4 px-1">{rateAvg}</div>
+          <div className="rate-count d-inline p-1 pt-2 fs-6">{`(${rateCount}  تقييم)`}</div>
         </Col>
       </Row>
       <RatePost refetchProduct={refetchProduct} />
-      {allReviews.data.length > 0 ? (
-        <div className="mb-3">
+      {allReviews.data && allReviews.data.length > 0 ? (
+        <div className="mb-3 ">
           {allReviews.data.map((review) => (
             <RateItem
               review={review}

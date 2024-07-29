@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const BrandCard = ({ img, id }) => {
   return (
     <Col
-      xs="10"
+      xs="6"
       sm="6"
       md="4"
       lg="2"

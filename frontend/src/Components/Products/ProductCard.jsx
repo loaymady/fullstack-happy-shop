@@ -55,10 +55,10 @@ const ProductCard = ({ product, wishlistData }) => {
   return (
     <Col xs="12" sm="6" md="4" lg="3" className="d-flex">
       <Card
-        className="my-2"
+        className="my-2 pt-4"
         style={{
           width: "100%",
-          height: "345px",
+          minHeight: "345px",
           borderRadius: "8px",
           border: "none",
           backgroundColor: "#FFFFFF",
@@ -114,7 +114,7 @@ const ProductCard = ({ product, wishlistData }) => {
                 <div className="card-price">
                   {product.priceAfterDiscount >= 1 ? (
                     <div>
-                      <span style={{ textDecorationLine: "line-through" }}>
+                      <span className="text-decoration-line-through">
                         {product.price}
                       </span>{" "}
                       {product.priceAfterDiscount}

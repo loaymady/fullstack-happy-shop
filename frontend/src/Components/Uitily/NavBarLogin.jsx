@@ -14,7 +14,7 @@ import cartt from "../../images/cart.png";
 import { useEffect, useState } from "react";
 import { useGetProductBySearchBarQuery } from "../../app/services/productsSlice";
 
-const NavBarLogin = ({ cart, isError }) => {
+const NavBarLogin = ({ cart }) => {
   const [word, setWord] = useState("");
   const { data: getProductBySearchBar } = useGetProductBySearchBarQuery(
     {
@@ -24,6 +24,7 @@ const NavBarLogin = ({ cart, isError }) => {
       skip: word == "" ? true : false,
     }
   );
+
   const [suggestions, setSuggestions] = useState([]);
   const [user, setUser] = useState("");
 
@@ -46,7 +47,6 @@ const NavBarLogin = ({ cart, isError }) => {
       const filteredSuggestions = getProductBySearchBar.data.filter((product) =>
         product.title.toLowerCase().includes(searchWord.toLowerCase())
       );
-      console.log(filteredSuggestions);
       setSuggestions(filteredSuggestions);
     } else {
       setSuggestions([]);
@@ -119,7 +119,7 @@ const NavBarLogin = ({ cart, isError }) => {
                 <p style={{ color: "white" }}>دخول</p>
               </Nav.Link>
             )}
-            {isError ? (
+            {cart == undefined ? (
               ""
             ) : (
               <Nav.Link

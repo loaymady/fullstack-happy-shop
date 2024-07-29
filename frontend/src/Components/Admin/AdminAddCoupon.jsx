@@ -82,7 +82,7 @@ const AdminAddCoupon = () => {
       </Row>
       <Row>
         <Col sm="8" className="d-flex justify-content-end ">
-          <button onClick={onSubmit} className="btn-save d-inline mt-2 ">
+          <button onClick={onSubmit} className="btn-save d-inline my-3 ">
             {isLoadingCreateCoupon ? (
               <Spinner animation="border" role="status" size="sm" />
             ) : (

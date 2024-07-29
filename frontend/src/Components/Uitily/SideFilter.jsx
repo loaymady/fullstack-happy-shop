@@ -42,7 +42,6 @@ const SideFilter = ({
       if (e.target.checked === true) {
         setBrandsChecked([...brandsChecked, value]);
       } else {
-        console.log(brandsChecked);
         const newArry = brandsChecked.filter((e) => e !== value);
         setBrandsChecked(newArry);
       }

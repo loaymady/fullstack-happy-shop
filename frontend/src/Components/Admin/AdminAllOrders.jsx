@@ -20,7 +20,7 @@ const AdminAllOrders = () => {
   const getPage = (page) => {
     setPage(page);
   };
-  console.log(orders);
+
   return (
     <div>
       <div className="admin-content-text mb-2">ادارة جميع الطلبات</div>

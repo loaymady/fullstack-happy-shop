@@ -17,6 +17,7 @@ const ChoosePayMethoud = ({ addresses, cart, refetchCart }) => {
     useCreateCardOrderMutation();
   const [type, setType] = useState("");
   const navigate = useNavigate();
+
   const handelCreateOrder = async () => {
     if (cart.products.length === 0) {
       return notify("لا يوجد منتجات في السلة", "warn");
@@ -36,9 +37,7 @@ const ChoosePayMethoud = ({ addresses, cart, refetchCart }) => {
     };
 
     if (type === "CARD") {
-      console.log("order card");
       const result = await createCardOrder({ id: cart._id, body });
-      console.log(result);
 
       if (result.error) {
         notify("هناك مشكلة", "error");
@@ -46,7 +45,6 @@ const ChoosePayMethoud = ({ addresses, cart, refetchCart }) => {
         window.open(result?.data?.session.url);
       }
     } else if (type === "CASH") {
-      console.log("order cash");
       const result = await createCashOrder({ id: cart._id, body });
 
       if (result.error) {
@@ -139,23 +137,25 @@ const ChoosePayMethoud = ({ addresses, cart, refetchCart }) => {
         <Col xs="12" className="d-flex justify-content-end">
           {cart.totalCartPrice ? (
             <div className="product-price d-inline border">
-              {cart.totalCartPrice} جنيه
+              {cart.totalAfterDiscount
+                ? cart.totalAfterDiscount
+                : cart.totalCartPrice}{" "}
+              جنيه
             </div>
           ) : (
             ""
           )}
 
-          <div
-            className="product-cart-add px-3 py-2 d-inline me-2"
+          <button
+            className="product-cart-add px-3 py-2  d-inline me-2"
             onClick={handelCreateOrder}
-            style={{ cursor: "pointer" }}
           >
             {isLoadingCashOrder || isLoadingCardOrder ? (
               <Spinner animation="border" role="status" size="sm" />
             ) : (
               "اتمام الشراء"
             )}
-          </div>
+          </button>
         </Col>
       </Row>
     </div>

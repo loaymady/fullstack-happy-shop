@@ -52,11 +52,13 @@ const RatePost = ({ refetchProduct }) => {
       setReviewText("");
     }
   };
+
+  if (!localStorage.getItem("token")) return null;
   return (
     <div>
       <Row className="mt-3 ">
-        <Col sm="12" className="  d-flex">
-          <div className="rate-name  d-inline ms-3 mt-1 ">{user.name}</div>
+        <Col sm="12" className="  d-flex align-items-end">
+          <div className="rate-name  d-inline ms-3 mb-1 fs-4">{user.name}</div>
           <ReactStars {...setting} />
         </Col>
       </Row>

@@ -35,7 +35,12 @@ const ProductsByCategory = () => {
       <Container>
         <Row className="d-flex flex-row">
           <Col sm="12">
-            <CardProductsContainer productss={data.data} title="" btntitle="" />
+            <CardProductsContainer
+              skip={true}
+              productss={data.data}
+              title=""
+              btntitle=""
+            />
           </Col>
         </Row>
 

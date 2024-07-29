@@ -45,7 +45,7 @@ const ShopProductsPage = () => {
         />
       </div>
     );
-  // console.log(categoryList);
+
   const pageCount = productsBySearch?.paginationResult.numberOfPages;
 
   const getPage = (page) => {

@@ -192,7 +192,7 @@ const UserProfile = ({ user }) => {
             <button
               disabled={isLoadingPass}
               onClick={handelChangePassword}
-              className="btn-save d-inline mt-2 "
+              className="btn-save d-inline mt-4"
             >
               {isLoadingPass ? (
                 <Spinner animation="border" role="status" size="sm" />

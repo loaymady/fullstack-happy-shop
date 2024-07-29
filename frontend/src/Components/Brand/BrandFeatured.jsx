@@ -10,7 +10,7 @@ const BrandFeatured = ({ title, btntitle }) => {
   return (
     <Container className="pb-2">
       <SubTiltle title={title} btntitle={btntitle} pathText="/allbrand" />
-      <Row className="my-1 d-flex justify-content-center justify-content-md-between ">
+      <Row className="my-1 d-flex  justify-content-start justify-content-lg-between ">
         {isLoading === false ? (
           brands?.data.length > 0 ? (
             brands.data.map((brand) => (

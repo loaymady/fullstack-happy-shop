@@ -35,6 +35,7 @@ const ProductsByBrand = () => {
         <Row className="d-flex flex-row">
           <Col sm="12">
             <CardProductsContainer
+              skip={true}
               productss={data?.data}
               title=""
               btntitle=""

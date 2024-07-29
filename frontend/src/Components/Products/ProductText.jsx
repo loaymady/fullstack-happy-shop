@@ -38,22 +38,23 @@ const ProductText = ({ product, category, brand }) => {
   return (
     <div>
       <Row className="mt-2">
-        <div className="cat-text">{category ? category.name : "لا يوجد"} :</div>
+        <div className="cat-text">{category ? category.name : "لا يوجد"}</div>
       </Row>
       <Row>
         <Col md="8">
-          <div className="cat-title d-flex align-items-center">
+          <div className="cat-title d-flex align-items-center fw-bolder fs-3">
             {product.title}
 
-            <div className="cat-rate  d-flex align-items-center  p-1 pt-2">
+            <div className="cat-rate d-flex align-items-end p-1 pt-2">
+              {" "}
               <img
                 className=" mx-1"
                 src={rate}
                 alt=""
-                height="13px"
-                width="13px"
+                height="24px"
+                width="24px"
               />
-              <div>
+              <div className="fs-2">
                 {product.ratingsAverage
                   ? product.ratingsAverage
                   : "لا يوجد تقييم"}
@@ -91,46 +92,57 @@ const ProductText = ({ product, category, brand }) => {
         </Col>
       </Row>
 
-      <Row className="mt-4">
+      {/* <Row className="mt-4">
         <div className="cat-text">المواصفات :</div>
-      </Row>
-      <Row className="mt-2">
-        <Col md="10">
-          <div className="product-description d-inline">
+      </Row> */}
+      <Row className="mt-4 align-items-baseline">
+        <Col sm="auto" className="ps-1">
+          <div className="cat-text">المواصفات :</div>
+        </Col>
+        <Col className="p-sm-0">
+          <div className="product-description d-inline ">
             {product.description}
           </div>
         </Col>
       </Row>
-      <Row className="mt-4">
+      <Row className="mt-3 mb-3 mt-md-4 mb-md-0">
         <Col md="12" className="d-flex flex-wrap">
           {product.priceAfterDiscount >= 1 ? (
-            <div className="product-price d-inline px-3 py-3 border">
-              <span style={{ textDecorationLine: "line-through" }}>
+            <button
+              type="button"
+              className="product-price d-inline px-3 py-2 border"
+              style={{ cursor: "auto" }}
+            >
+              <span className="text-decoration-line-through">
                 {" "}
                 {product.price}
               </span>{" "}
               {product.priceAfterDiscount} جنيه
-            </div>
+            </button>
           ) : (
-            <div className="product-price d-inline px-3 py-3 border">
+            <button
+              type="button"
+              style={{ cursor: "auto" }}
+              className="product-price d-inline px-3 py-2 border"
+            >
               <span> {product.price}</span> جنيه{" "}
-            </div>
+            </button>
           )}
           {user.role &&
             user.role !== "admin" &&
             (product.quantity >= 1 && user.role === "user" ? (
-              <div
+              <button
                 onClick={handleAddToCart}
-                className="product-cart-add px-3 py-3 d-inline mx-3"
+                className="product-cart-add px-3 py-2 d-inline mx-3"
               >
                 {isLoading ? (
                   <Spinner animation="border" role="status" size="sm" />
                 ) : (
                   "اضف للعربة"
                 )}
-              </div>
+              </button>
             ) : (
-              <div className="product-cart-remove px-3 py-3 d-inline mx-3">
+              <div className="product-cart-remove px-3 py-2 d-inline mx-3">
                 نفذت الكمية
               </div>
             ))}

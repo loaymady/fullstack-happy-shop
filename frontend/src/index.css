@@ -10,6 +10,13 @@ body {
   }
 }
 
+@media (max-width: 480px) {
+  .Toastify__toast {
+    width: 320px !important;
+    margin: 10px 0 !important;
+  }
+}
+
 .m-0 {
   margin: 0;
 }

@@ -13,7 +13,7 @@ import { notify } from "../../functions";
 
 const RateItem = ({ review, refetchProduct }) => {
   const user = JSON.parse(localStorage.getItem("user"));
-  const isUser = user._id === review.user._id;
+  const isUser = user ? user._id === review.user._id : false;
   const [newRateValue, setNewRateValue] = useState(1);
   const [newRateText, setNewRateText] = useState(review.review);
   const [showEdit, setShowEdit] = useState(false);
@@ -68,7 +68,7 @@ const RateItem = ({ review, refetchProduct }) => {
   };
 
   return (
-    <div>
+    <div className="py-4">
       <Modal show={showDelete} onHide={handleClose}>
         <Modal.Header>
           <Modal.Title>
@@ -134,18 +134,24 @@ const RateItem = ({ review, refetchProduct }) => {
         </Modal.Footer>
       </Modal>
 
-      <Row className="mt-3">
-        <Col className="d-felx me-5">
-          <div className="rate-name  d-inline ms-2"> {review.user.name}</div>
-          <img className="" src={rate} alt="" height="16px" width="16px" />
-          <div className="cat-rate  d-inline  p-1 pt-2">{review.rating}</div>
+      <Row className="">
+        <Col className="d-felx me-5 align-items-center">
+          <div className="rate-name  d-inline ms-2  fs-4">
+            {review.user.name}
+          </div>
+          <img className="mb-1" src={rate} alt="" height="20px" width="20px" />
+          <div className="cat-rate  d-inline fs-5 p-1 pt-2">
+            {review.rating}
+          </div>
         </Col>
       </Row>
-      <Row className="border-bottom  mx-2">
-        <Col className="d-felx me-4 pb-2">
-          <div className="rate-description  d-inline ms-2">{review.review}</div>
+      <Row className="border-bottom mx-2">
+        <Col className="d-flex me-5 pe-0 pb-2 mb-3">
+          <div className="rate-description mt-1 d-inline ms-2 fs-6">
+            {review.review}
+          </div>
           {isUser === true ? (
-            <div className="d-inline d-flex justify-content-end gap-2">
+            <div className="d-inline d-flex justify-content-end gap-2 me-auto">
               <img
                 src={deleteicon}
                 onClick={handleShow}

@@ -58,7 +58,7 @@ const CartItem = ({ item }) => {
                   <Spinner animation="border" role="status" size="md" />
                 ) : (
                   <div
-                    className="d-flex gap-1 pt-2 "
+                    className="d-flex gap-1 align-items-center"
                     style={{ cursor: "pointer" }}
                   >
                     <img src={deleteicon} alt="" width="20px" height="24px" />
@@ -99,8 +99,11 @@ const CartItem = ({ item }) => {
         </Row>
 
         <Row className="justify-content-between">
-          <Col sm="12" className=" d-flex flex-row justify-content-between">
-            <div className="d-inline pt-2 d-flex align-items-center">
+          <Col
+            sm="12"
+            className=" d-flex flex-row justify-content-between flex-wrap"
+          >
+            <div className="d-inline pt-2 d-flex align-items-center ">
               <div className="cat-text text-xl mt-2  d-inline">الكميه</div>
               <input
                 value={quantity}
@@ -123,7 +126,7 @@ const CartItem = ({ item }) => {
             </div>
             {item?.product.priceAfterDiscount >= 1 ? (
               <div className="d-inline pt-2 barnd-text">
-                <span style={{ textDecorationLine: "line-through" }}>
+                <span className="text-decoration-line-through">
                   {" "}
                   {item?.product.price}
                 </span>{" "}

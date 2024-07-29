@@ -12,12 +12,21 @@ const CardProductsContainer = ({
   pathText,
   categoryId,
   productss,
+  skip,
 }) => {
-  const { data: products, isLoading } = useGetProductListLikeQuery({
-    category: categoryId,
-  });
+  const { data: products, isLoading } = useGetProductListLikeQuery(
+    {
+      category: categoryId,
+    },
+    {
+      skip: skip,
+    }
+  );
   const { data: wishlistData, isLoading: isLoadingwishlistData } =
-    useGetWishlistQuery();
+    useGetWishlistQuery(
+      { undefined },
+      { skip: !localStorage.getItem("token") }
+    );
 
   return (
     <Container>

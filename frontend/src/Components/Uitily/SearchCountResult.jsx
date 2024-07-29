@@ -4,7 +4,7 @@ import sort from "../../images/sort.png";
 
 const SearchCountResult = ({ title, setSortBy, sortBy }) => {
   const handler = () => {};
-  console.log(sortBy);
+
   return (
     <div className="d-flex justify-content-between pt-3 px-2">
       <div className="sub-tile">{title}</div>
