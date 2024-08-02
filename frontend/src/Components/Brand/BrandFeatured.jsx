@@ -1,8 +1,9 @@
 /* eslint-disable react/prop-types */
-import { Container, Row, Spinner } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 import SubTiltle from "../Uitily/SubTiltle";
 import BrandCard from "./BrandCard";
 import { useGetBrandListQuery } from "../../app/services/brandsSlice";
+import SkeletonBrands from "../Uitily/SkeletonBrands";
 
 const BrandFeatured = ({ title, btntitle }) => {
   const { isLoading, data: brands } = useGetBrandListQuery({ limit: 5 });
@@ -10,17 +11,19 @@ const BrandFeatured = ({ title, btntitle }) => {
   return (
     <Container className="pb-2">
       <SubTiltle title={title} btntitle={btntitle} pathText="/allbrand" />
-      <Row className="my-1 d-flex  justify-content-start justify-content-lg-between ">
-        {isLoading === false ? (
-          brands?.data.length > 0 ? (
-            brands.data.map((brand) => (
-              <BrandCard key={brand._id} id={brand._id} img={brand.image} />
-            ))
-          ) : (
-            <h4> لا يوجد ماركات</h4>
-          )
+      <Row className="my-1 d-flex justify-content-start justify-content-lg-between">
+        {isLoading ? (
+          <>
+            {Array.from({ length: 5 }).map((_, index) => (
+              <SkeletonBrands key={index} />
+            ))}
+          </>
+        ) : brands?.data.length > 0 ? (
+          brands.data.map((brand) => (
+            <BrandCard key={brand._id} id={brand._id} img={brand.image} />
+          ))
         ) : (
-          <Spinner animation="border" className="mx-auto my-3" variant="info" />
+          <h4>لا يوجد ماركات</h4>
         )}
       </Row>
     </Container>

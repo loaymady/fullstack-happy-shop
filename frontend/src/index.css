@@ -193,6 +193,27 @@ body {
   line-height: 28px;
 }
 
+@media (max-width: 567px) {
+  .card {
+    padding: 10px !important;
+  }
+}
+@media (max-width: 567px) {
+  .card-des > div > div {
+    font-size: 20px !important;
+  }
+}
+@media (max-width: 567px) {
+  .card-title {
+    font-size: 20px !important;
+  }
+}
+@media (max-width: 567px) {
+  .card-body > div:nth-child(2) {
+    margin-top: 14px !important;
+  }
+}
+
 .card-currency {
   color: #555550;
   font-family: Almarai;

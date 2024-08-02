@@ -97,7 +97,7 @@ const ProductCard = ({ product, wishlistData }) => {
             <div className="card-title">{product.title} </div>
           </Card.Title>
           <Card.Text as={"div"}>
-            <div className="d-flex justify-content-between mt-2">
+            <div className="card-des d-flex justify-content-between mt-2">
               <div className="d-flex">
                 <img
                   className=""
