@@ -16,7 +16,7 @@ const HomePage = () => {
       />
       <DiscountSection />
       <CardProductsContainer
-        title="احدث الازياء"
+        title="احدث المنتجات"
         btntitle="المزيد"
         pathText="/products"
       />
